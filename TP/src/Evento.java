@@ -8,6 +8,15 @@ public class Evento {
     private ArrayList<Persona> miembros;
     /*private ArrayList<Boolean> asistencia;*/
 
+    public Evento(String nombreEvento, String fecha, String ubicacion, String descripcion, Persona creadorEvento){
+        this.nombreEvento = nombreEvento;
+        this.fecha = fecha;
+        this.ubicacion = ubicacion;
+        this.descripcion = descripcion;
+        miembros = new ArrayList<Persona>();
+        this.miembros.add(creadorEvento);
+    }
+
     public String getNombreEvento(){
         return this.nombreEvento;
     }
