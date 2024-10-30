@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
+
+        ArrayList<Evento> lista = new ArrayList<Evento>();
 
         System.out.println("Ingrese el número de la acción a realizar: \n" +
         "1.Crear un nuevo evento\n" + 
@@ -12,16 +15,128 @@ public class App {
         "6.Gestionar recursos" +
         "7.Ver calendario");
 
-        
-        int opcion;
         Scanner input = new Scanner(System.in);
-
-        try{
-            do {
-                System.out.println("Ingrese numero:");
-                opcion = Integer.parseInt(input.nextLine());
-            } while (opcion < 1 || opcion > 5);
         
+        try{
+            int opcion;
+            String respuesta;
+            do{
+                do {
+                    System.out.println("Ingrese numero:");
+                    opcion = Integer.parseInt(input.nextLine());
+                } while (opcion < 1 || opcion > 5);
+
+                switch (opcion) {
+                    case 1 -> {
+
+                        System.out.println("Ingrese nombre del evento: ");
+                    
+                        String nombreEvento = input.nextLine();
+                        System.out.println("Ingrese el año del evento: ");
+                        int AAAA = Integer.parseInt(input.nextLine());
+                        System.out.println("Ingrese el mes del evento: ");
+                        int MM = Integer.parseInt(input.nextLine());
+                        System.out.println("Ingrese el dia del evento: ");
+                        int DD = Integer.parseInt(input.nextLine());
+                        System.out.println("Ingrese ubicacion del evento: ");
+                        String ubicacion = input.nextLine();
+                        System.out.println("Ingrese descripcion del evento: ");
+                        String descripcion = input.nextLine();
+
+                        Evento nuevoEvento = new Evento(nombreEvento, AAAA + "/" + MM + "/" + DD, ubicacion, descripcion);
+                        lista.add(nuevoEvento);
+                        
+
+                        break;
+                    }
+                    case 2 -> {
+                        do{
+                            System.out.println("Que evento quiere modificar?");
+                            int i = 0;
+                            for (Evento evento : lista) {
+                                System.out.println(i + "." + evento.getNombreEvento());
+                                i++;
+                            }
+                            i= Integer.parseInt(input.nextLine());
+
+                            System.out.println("Que quiere modificar?" +
+                            "1.Nombre del evento" +
+                            "2.Año del evento" +
+                            "3.Mes del evento" +
+                            "4.Dia del evento" +
+                            "5.Ubicacion del evento" +
+                            "6.Descripcion del evento" );
+                            opcion = Integer.parseInt(input.nextLine());
+
+                            switch (opcion) {
+                                case 1 -> {
+                                    System.out.println("Ingrese el nuevo nombre: ");
+                                    String nombre = input.nextLine();
+                                    lista.get(i).setNombreEvento(nombre);
+                                    break;
+                                }
+                                case 2 -> {
+                                    System.out.println("Ingrese el nuevo año : ");
+                                    String nombre = input.nextLine();
+                                    lista.get(i).setFecha(respuesta);      //terminar bien la fecha
+                                    break;
+                                }
+                                case 3 -> {
+                                    System.out.println("Ingrese el nuevo mes : ");
+                                    String nombre = input.nextLine();
+                                    lista.get(i).setNombreEvento(nombre);      //terminar bien la fecha
+                                    break;
+                                }
+                                case 4 -> {
+                                    System.out.println("Ingrese el nuevo dia: ");
+                                    String nombre = input.nextLine();
+                                    lista.get(i).setNombreEvento(nombre);       //terminar bien la fecha  
+                                    break;
+                                }
+                                case 5 -> {
+                                    System.out.println("Ingrese la nueva ubicacion: ");
+                                    String ubicacion = input.nextLine();
+                                    lista.get(i).setUbicacion(ubicacion);       
+                                    break;
+                                }
+                                case 6 -> {
+                                    System.out.println("Ingrese la nueva descripcion: ");
+                                    String descripcion = input.nextLine();
+                                    lista.get(i).setDescripcion(descripcion);         //falta setDescripcion
+                                    break;
+                                }
+                            }
+                            System.out.println("Desea continuar?");
+                            respuesta = input.nextLine().toUpperCase();    
+                        }while(respuesta != "NO");
+
+                        
+                    }
+                    case 3 -> {
+
+                    }
+                    case 4 -> {
+                
+                    }
+                    case 5 -> {
+                        System.out.println("Ingrese los participantes del evento: ");
+                        do {
+
+                            
+                        } while (persona != "STOP");
+                    }
+                    case 6 -> {
+                
+                    }
+                    case 7 -> {
+                
+                    } 
+                }
+                System.out.println("Desea continuar?");
+                respuesta = input.nextLine().toUpperCase();
+
+            } while (respuesta != "NO");
+            
         }
         finally{
             input.close();
