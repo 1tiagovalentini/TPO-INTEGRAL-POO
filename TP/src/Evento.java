@@ -8,6 +8,10 @@ public class Evento {
     private ArrayList<Persona> miembros;
     /*private ArrayList<Boolean> asistencia;*/
 
+    public String getNombreEvento(){
+        return this.nombreEvento;
+    }
+
     public String getFecha(){
         return this.fecha;
     }
@@ -32,5 +36,11 @@ public class Evento {
         this.fecha = fecha;
     }
     
-    
+    public void setUbicacion(String ubicacion){
+        this.ubicacion = ubicacion;
+    }
+
+    public void AgregarMiembro(Persona miembroNuevo){
+        this.miembros.add(miembroNuevo);
+    }
 }
