@@ -1,22 +1,66 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
-
-        ArrayList<Evento> lista = new ArrayList<Evento>();
-
-        System.out.println("Ingrese el número de la acción a realizar: \n" +
-        "1.Crear un nuevo evento\n" + 
-        "2.Modificar un evento\n" +
-        "3.Ver eventos\n" + 
-        "4.Ver registro de personas de cierto evento\n" +
-        "5.Inscribir una persona a un evento" +
-        "6.Gestionar recursos" +
-        "7.Ver calendario");
-
+        ArrayList<Evento> listadoEventos = new ArrayList<Evento>();
         Scanner input = new Scanner(System.in);
+        int opcion;
+        do{
+            System.out.print("""
+            Que desea realizar:\n
+            1.Crear un nuevo evento\n 
+            2.Modificar un evento\n
+            3.Ver eventos\n 
+            4.Ver registro de personas de cierto evento\n
+            5.Inscribir una persona a un evento\n
+            6.Gestionar recursos\n
+            7.Ver calendario\n
+            8.Cerrar sistema\n\n
+            Insgrese numero de accion a realizar: """); 
+            opcion = Integer.parseInt(input.nextLine());
+            System.err.println();
+
+            switch(opcion){
+                case 1:
+                    System.out.println("Ingrese nombre del evento: ");   
+                    String nombreEvento = input.nextLine();
+
+                    System.out.println("Ingrese el año del evento: ");
+                    int AAAA = Integer.parseInt(input.nextLine());
+                    System.out.println("Ingrese el mes del evento: ");
+                    int MM = Integer.parseInt(input.nextLine());
+                    System.out.println("Ingrese el dia del evento: ");
+                    int DD = Integer.parseInt(input.nextLine());
+                    
+                    System.out.println("Ingrese ubicacion del evento: ");
+                    String ubicacion = input.nextLine();
+                    
+                    System.out.println("Ingrese descripcion del evento: ");
+                    String descripcion = input.nextLine();
+
+                    Evento nuevoEvento = new Evento(nombreEvento, AAAA + "/" + MM + "/" + DD, ubicacion, descripcion);
+                    listadoEventos.add(nuevoEvento);
+                    break;
+                    
+                case 3:
+                    if (listadoEventos.isEmpty()) {
+                        System.out.println("No hay eventos registrados");
+                    } else {
+                        for(Iterator<Evento> i = listadoEventos.iterator();i.hasNext();){
+                            System.out.println(i.next());
+                        }
+                    }
+                    break;
+
+                default:
+                    System.out.println("Opcion invalida o no desarrollada");
+            }
+        }while(opcion!=8);
         
+
+        /*        
         try{
             int opcion;
             String respuesta;
@@ -153,6 +197,6 @@ public class App {
         }
         finally{
             input.close();
-        }
+        }*/
     }
 }

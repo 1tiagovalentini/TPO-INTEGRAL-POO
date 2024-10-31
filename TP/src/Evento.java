@@ -51,4 +51,9 @@ public class Evento {
     public void AgregarMiembro(Persona miembroNuevo){
         this.miembros.add(miembroNuevo);
     }
+
+    @Override
+    public String toString(){
+        return "'"+this.nombreEvento+"' ["+this.fecha+"] en "+this.ubicacion+": "+this.descripcion;
+    }
 }
