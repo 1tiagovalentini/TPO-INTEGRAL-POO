@@ -36,6 +36,10 @@ public class Evento {
         return this.miembros;
     }
 
+    public void setDescripcion(String descripcion){
+        this.descripcion = descripcion;
+    }
+
     public void setNombreEvento(String nombreEvento) {
         this.nombreEvento = nombreEvento;
     }
