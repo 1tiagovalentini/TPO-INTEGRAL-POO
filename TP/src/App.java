@@ -113,6 +113,19 @@ public class App {
                         
                     }
                     case 3 -> {
+                        if (lista.isEmpty()) {
+                            System.out.println("No hay eventos registrados");
+                        } else {
+                            System.out.println("Lista de eventos:");
+                            for (int i = 0; i < lista.size(); i++) {
+                                Evento evento = lista.get(i);
+                                System.out.println((i + 1) + ". Nombre: " + evento.getNombreEvento() +
+                                        ", Fecha: " + evento.getFecha() +
+                                        ", Ubicación: " + evento.getUbicacion() +
+                                        ", Descripción: " + evento.getDescripcion());
+                            }
+                        }
+                        break;
 
                     }
                     case 4 -> {
