@@ -1,23 +1,22 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        ArrayList<Evento> listadoEventos = new ArrayList<Evento>();
+        GestorDeEventos eventos = new GestorDeEventos();
         Scanner input = new Scanner(System.in);
         int opcion;
         do{
             System.out.print("""
-            Que desea realizar:\n
-            1.Crear un nuevo evento\n 
-            2.Modificar un evento\n
-            3.Ver eventos\n 
-            4.Ver registro de personas de cierto evento\n
-            5.Inscribir una persona a un evento\n
-            6.Gestionar recursos\n
-            7.Ver calendario\n
-            8.Cerrar sistema\n\n
+            Que desea realizar:
+            1.Crear un nuevo evento 
+            2.Modificar un evento
+            3.Ver eventos 
+            4.Ver registro de personas de cierto evento
+            5.Inscribir una persona a un evento
+            6.Gestionar recursos
+            7.Ver calendario
+            8.Cerrar sistema\n
             Insgrese numero de accion a realizar: """); 
             opcion = Integer.parseInt(input.nextLine());
             System.err.println();
@@ -40,23 +39,24 @@ public class App {
                     System.out.println("Ingrese descripcion del evento: ");
                     String descripcion = input.nextLine();
 
-                    Evento nuevoEvento = new Evento(nombreEvento, AAAA + "/" + MM + "/" + DD, ubicacion, descripcion);
-                    listadoEventos.add(nuevoEvento);
+                    eventos.crearEvento(nombreEvento, AAAA + "/" + MM + "/" + DD, ubicacion, descripcion, false);
                     break;
+
                 case 2:
                     System.out.println("Que evento quiere modificar?");
                     int i = 0;
-                    for (Evento evento : listadoEventos) {
+                    for (Evento evento : eventos.getListadoEventos()) {
                         System.out.println(i + "." + evento.getNombreEvento());
                         i++;
                     }
-                    i= Integer.parseInt(input.nextLine()); 
+                    i= Integer.parseInt(input.nextLine());
+
                 case 3:
-                    if (listadoEventos.isEmpty()) {
+                    if (eventos.getListadoEventos().isEmpty()) {
                         System.out.println("No hay eventos registrados");
                     } else {
-                        for(Iterator<Evento> i = listadoEventos.iterator();i.hasNext();){
-                            Evento evento = i.next();
+                        for(Iterator<Evento> j = eventos.getListadoEventos().iterator();j.hasNext();){
+                            Evento evento = j.next();
                             System.out.println("- '" + evento.getNombreEvento() + "' [" + evento.getFecha() +"] en " + evento.getUbicacion() +": " + evento.getDescripcion());
                         }
                     }
@@ -66,7 +66,7 @@ public class App {
                     break;
             }
         }while(opcion!=8);
-        
+        input.close();
 
         /*        
         try{
