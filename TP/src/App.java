@@ -43,19 +43,27 @@ public class App {
                     Evento nuevoEvento = new Evento(nombreEvento, AAAA + "/" + MM + "/" + DD, ubicacion, descripcion);
                     listadoEventos.add(nuevoEvento);
                     break;
-                    
+                case 2:
+                    System.out.println("Que evento quiere modificar?");
+                    int i = 0;
+                    for (Evento evento : listadoEventos) {
+                        System.out.println(i + "." + evento.getNombreEvento());
+                        i++;
+                    }
+                    i= Integer.parseInt(input.nextLine()); 
                 case 3:
                     if (listadoEventos.isEmpty()) {
                         System.out.println("No hay eventos registrados");
                     } else {
                         for(Iterator<Evento> i = listadoEventos.iterator();i.hasNext();){
-                            System.out.println(i.next());
+                            Evento evento = i.next();
+                            System.out.println("- '" + evento.getNombreEvento() + "' [" + evento.getFecha() +"] en " + evento.getUbicacion() +": " + evento.getDescripcion());
                         }
                     }
                     break;
-
                 default:
                     System.out.println("Opcion invalida o no desarrollada");
+                    break;
             }
         }while(opcion!=8);
         
