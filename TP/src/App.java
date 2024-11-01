@@ -173,14 +173,39 @@ public class App {
 
                     }
                     case 4 -> {
-                
+                        System.out.println("Participantes de que evento desea ver?");
+                            int i = 0;
+                            for (Evento evento : lista) {
+                                System.out.println(i + "." + evento.getNombreEvento());
+                                i++;
+                            }
+                            i= Integer.parseInt(input.nextLine());
+                        System.out.println("Lista de participantes del evento" + lista.get(i).getNombreEvento());
+                            int j = 0;
+                        for (Persona participante : lista.get(i).ArrayList()) {
+                            System.out.println(j + "." + participante.getNombre());
+                            j++;
+                        }
+                            
                     }
                     case 5 -> {
-                        System.out.println("Ingrese los participantes del evento: ");
-                        do {
+                        System.out.println("A que evento quiere agregar participantes?");
+                            int i = 0;
+                            for (Evento evento : lista) {
+                                System.out.println(i + "." + evento.getNombreEvento());
+                                i++;
+                            }
+                            i= Integer.parseInt(input.nextLine());
 
-                            
-                        } while (persona != "STOP");
+                        System.out.println("Ingrese los participantes del evento (ingrese STOP para dejar de agregar): ");
+                        String persona;
+                        do {
+                            persona = input.nextLine();
+                            if (!persona.equals("STOP")) {
+                                Persona participante = new Persona(persona);
+                                lista.get(i).ArrayList().add(participante);
+                            }
+                        } while (!persona.equals("STOP"));
                     }
                     case 6 -> {
                 
