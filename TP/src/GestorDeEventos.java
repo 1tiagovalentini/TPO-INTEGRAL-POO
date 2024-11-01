@@ -1,23 +1,48 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GestorDeEventos {
-    private ArrayList<Evento> listadoEventos;
+    private HashMap<String, Evento> listadoEventos;
     private PersistenciaDeEventos archivoEventos;
 
     public GestorDeEventos(){
-        listadoEventos = new ArrayList<Evento>();
+        listadoEventos = new HashMap<>();
         archivoEventos = new PersistenciaDeEventos("historialEventos.txt", this);
     }
 
     public void crearEvento(String nombreEvento, String fecha, String ubicacion, String descripcion, boolean vieneDelArchivo){
-        Evento nuevoEvento = new Evento(nombreEvento, fecha, ubicacion, descripcion);
-        listadoEventos.add(nuevoEvento);
-        if(!vieneDelArchivo){
-            archivoEventos.escribirEnArchivo(nombreEvento +","+ fecha +","+ ubicacion +","+ descripcion);
+        if(!listadoEventos.containsKey(nombreEvento)){
+            Evento nuevoEvento = new Evento(nombreEvento, fecha, ubicacion, descripcion);
+            listadoEventos.put(nombreEvento, nuevoEvento);
+            if(!vieneDelArchivo){
+                archivoEventos.escribirEnArchivo(nombreEvento +","+ fecha +","+ ubicacion +","+ descripcion);
+            }
+        }else{
+            System.out.println("Error al cargar evento: el evento ya fue cargado anteriormente");
         }
+        
     }
 
-    public ArrayList<Evento> getListadoEventos(){
+    public void editarEvento(String nombreEvento, int opcionModificacion, String datoAModificar){
+        Evento eventoAModificar = listadoEventos.get(nombreEvento);
+        switch(opcionModificacion){
+            case 1:
+                eventoAModificar.setNombreEvento(datoAModificar.toUpperCase());
+                listadoEventos.remove(nombreEvento);
+                listadoEventos.put(datoAModificar.toUpperCase(), eventoAModificar);
+                break;
+            case 2:
+                eventoAModificar.setFecha(datoAModificar);
+                break;
+            case 3:
+                eventoAModificar.setFecha(datoAModificar);
+                break;
+            case 4:
+                eventoAModificar.setFecha(datoAModificar);
+                break;
+        } 
+    }
+
+    public HashMap<String, Evento> getListadoEventos(){
         return listadoEventos;
     }
 }

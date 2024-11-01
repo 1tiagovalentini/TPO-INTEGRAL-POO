@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -24,42 +26,83 @@ public class App {
             switch(opcion){
                 case 1:
                     System.out.println("Ingrese nombre del evento: ");   
-                    String nombreEvento = input.nextLine();
+                    String nombreEvento = input.nextLine().toUpperCase();
 
+                    System.out.println("Ingrese fecha del evento en formato (AAAA/MM/DD): ");
+                    String fecha = input.nextLine();
+                    /*
                     System.out.println("Ingrese el año del evento: ");
                     int AAAA = Integer.parseInt(input.nextLine());
                     System.out.println("Ingrese el mes del evento: ");
                     int MM = Integer.parseInt(input.nextLine());
                     System.out.println("Ingrese el dia del evento: ");
                     int DD = Integer.parseInt(input.nextLine());
-                    
+                    */
+
                     System.out.println("Ingrese ubicacion del evento: ");
                     String ubicacion = input.nextLine();
                     
                     System.out.println("Ingrese descripcion del evento: ");
                     String descripcion = input.nextLine();
 
-                    eventos.crearEvento(nombreEvento, AAAA + "/" + MM + "/" + DD, ubicacion, descripcion, false);
+                    eventos.crearEvento(nombreEvento, fecha, ubicacion, descripcion, false);
                     break;
 
                 case 2:
-                    System.out.println("Que evento quiere modificar?");
-                    int i = 0;
-                    for (Evento evento : eventos.getListadoEventos()) {
-                        System.out.println(i + "." + evento.getNombreEvento());
-                        i++;
+                    Set<String> listaEventos = eventos.getListadoEventos().keySet();
+                    String eventoAModificar;
+                    int opcionModificar;
+                    String datoAModificar;
+                    
+                    System.out.println("Que evento quiere modificar? (ingrese nombre)");
+                    for(Iterator<String> j = listaEventos.iterator();j.hasNext();){
+                        String evento = j.next();
+                        System.out.println("- '" + evento);
                     }
-                    i= Integer.parseInt(input.nextLine());
+                    do{
+                        eventoAModificar = input.nextLine().toUpperCase();
+                    }while(!listaEventos.contains(eventoAModificar));
+                    
+                    do{
+                      System.out.println("""
+                        Que quiere modificar del evento seleccionado?
+                        1.Nombre
+                        2.Fecha
+                        3.Ubicacion
+                        4.Descripcion""");
+                        opcionModificar = Integer.parseInt(input.nextLine());  
+                    }while(opcionModificar<1 && opcionModificar>4);                    
+                    switch(opcionModificar){
+                        case 1:
+                            System.out.println("Ingrese nombre del evento: ");
+                            break;
+                        case 2:
+                            System.out.println("Ingrese fecha del evento en formato (AAAA/MM/DD): ");
+                            break;
+                        case 3:
+                            System.out.println("Ingrese ubicacion del evento: ");
+                            break;
+                        case 4:
+                            System.out.println("Ingrese descripcion del evento: ");
+                            break;
+                    }
+                    datoAModificar = input.nextLine();
+
+                    eventos.editarEvento(eventoAModificar, opcionModificar, datoAModificar);
 
                 case 3:
                     if (eventos.getListadoEventos().isEmpty()) {
                         System.out.println("No hay eventos registrados");
                     } else {
-                        for(Iterator<Evento> j = eventos.getListadoEventos().iterator();j.hasNext();){
-                            Evento evento = j.next();
-                            System.out.println("- '" + evento.getNombreEvento() + "' [" + evento.getFecha() +"] en " + evento.getUbicacion() +": " + evento.getDescripcion());
+                        for(Iterator<Evento> i = eventos.getListadoEventos().values().iterator();i.hasNext();){
+                            Evento evento = i.next();
+                            System.out.println("- '" + evento.getNombreEvento() + "' [" + evento.getFecha()+
+                            "] en " + evento.getUbicacion() +": " + evento.getDescripcion());
                         }
                     }
+                    break;
+                case 8:
+                    System.out.println("Gracias por visitar el sistema");
                     break;
                 default:
                     System.out.println("Opcion invalida o no desarrollada");
