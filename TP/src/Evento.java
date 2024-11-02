@@ -6,14 +6,16 @@ public class Evento {
     private String ubicacion;
     private String descripcion;
     private ArrayList<Persona> miembros;
+    private ArrayList<Recurso> recursos;
     /*private ArrayList<Boolean> asistencia;*/
 
-    public Evento(String nombreEvento, String fecha, String ubicacion, String descripcion){
+    public Evento(String nombreEvento, String fecha, String ubicacion, String descripcion){ 
         this.nombreEvento = nombreEvento;
         this.fecha = fecha;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
         miembros = new ArrayList<Persona>();
+        recursos = new ArrayList<Recurso>();
     }
 
     public String getNombreEvento(){
@@ -32,8 +34,12 @@ public class Evento {
        return this.descripcion; 
     }
 
-    public ArrayList<Persona> ArrayList(){
+    public ArrayList<Persona> getMiembros(){
         return this.miembros;
+    }
+
+    public ArrayList<Recurso> getRecursos(){
+        return this.recursos;
     }
 
     public void setDescripcion(String descripcion){
@@ -54,6 +60,18 @@ public class Evento {
 
     public void AgregarMiembro(Persona miembroNuevo){
         this.miembros.add(miembroNuevo);
+    }
+
+    public void AgregarRecurso(Recurso recursoNuevo){
+        this.recursos.add(recursoNuevo);
+    }
+
+    public void QuitarMiembro(Persona miembro){
+        this.miembros.remove(miembro);
+    }
+
+    public void QuitarRecurso(Recurso recurso){
+        this.recursos.remove(recurso);
     }
 
     @Override

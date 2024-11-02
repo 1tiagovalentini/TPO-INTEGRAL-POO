@@ -1,21 +1,27 @@
+import java.util.HashSet;
+
 public class Recurso {
     private String tipo;
-    private boolean estaEnUso;
+    private HashSet<String> fechasEnUso;
 
-    public Recurso(String tipo, boolean estaEnUso) {
+    public Recurso(String tipo) {
         this.tipo = tipo;
-        this.estaEnUso = estaEnUso;
+        fechasEnUso = new HashSet<String>();
     }
 
     public String getTipo() {
         return tipo;
     }
 
-    public boolean isEstaEnUso() {
-        return estaEnUso;
+    public void agregarFechaEnUso(String fechaAUsar) {
+        fechasEnUso.add(fechaAUsar);
     }
 
-    public void setEstaEnUso(boolean estaEnUso) {
-        this.estaEnUso = estaEnUso;
+    public void quitarFechaEnUso(String fechaAUsar) {
+        fechasEnUso.remove(fechaAUsar);
+    }
+
+    public boolean isEstaEnUso(String fechaAUsar) {
+        return fechasEnUso.contains(fechaAUsar);
     }
 }
