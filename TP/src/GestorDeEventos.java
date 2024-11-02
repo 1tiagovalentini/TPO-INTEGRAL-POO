@@ -34,15 +34,19 @@ public class GestorDeEventos {
                 eventoAModificar.setFecha(datoAModificar);
                 break;
             case 3:
-                eventoAModificar.setFecha(datoAModificar);
+                eventoAModificar.setUbicacion(datoAModificar);
                 break;
             case 4:
-                eventoAModificar.setFecha(datoAModificar);
+                eventoAModificar.setDescripcion(datoAModificar);
                 break;
         } 
     }
 
     public HashMap<String, Evento> getListadoEventos(){
         return listadoEventos;
+    }
+
+    public Evento getEvento(String nombreEvento){
+        return listadoEventos.get(nombreEvento);
     }
 }
