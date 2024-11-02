@@ -18,7 +18,6 @@ public class PersistenciaDeEventos{
                 System.out.println(exception);
             }
         }
-        
     }
 
     public void escribirEnArchivo(String datosAEscribir) {

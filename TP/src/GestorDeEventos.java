@@ -2,11 +2,11 @@ import java.util.HashMap;
 
 public class GestorDeEventos {
     private HashMap<String, Evento> listadoEventos;
-    private PersistenciaDeEventos archivoEventos;
+    private ArchivosEventos archivoEventos;
 
     public GestorDeEventos(){
         listadoEventos = new HashMap<>();
-        archivoEventos = new PersistenciaDeEventos("historialEventos.txt", this);
+        archivoEventos = new ArchivosEventos("historialEventos.txt", this);
     }
 
     public void crearEvento(String nombreEvento, String fecha, String ubicacion, String descripcion, boolean vieneDelArchivo){
@@ -14,7 +14,7 @@ public class GestorDeEventos {
             Evento nuevoEvento = new Evento(nombreEvento, fecha, ubicacion, descripcion);
             listadoEventos.put(nombreEvento, nuevoEvento);
             if(!vieneDelArchivo){
-                archivoEventos.escribirEnArchivo(nombreEvento +","+ fecha +","+ ubicacion +","+ descripcion);
+                archivoEventos.escribirArchivo(nombreEvento +","+ fecha +","+ ubicacion +","+ descripcion);
             }
         }else{
             System.out.println("Error al cargar evento: el evento ya fue cargado anteriormente");

@@ -26,7 +26,7 @@ public abstract class GestorDeArchivos {
         }
     }
 
-    protected abstract void cargarEnMemoria(String[] datos);
+    protected abstract void cargarEnMemoria(String[] datos, GestorDeEventos gestor);
 
     public void leerArchivo(GestorDeEventos gestor){
         try{
@@ -35,7 +35,7 @@ public abstract class GestorDeArchivos {
             String linea = lectura.readLine();
             while(linea!=null){
                 String[] datos = linea.split(",");
-                this.cargarEnMemoria(datos);
+                this.cargarEnMemoria(datos, gestor);
                 linea = lectura.readLine();
             }
             lectura.close();
