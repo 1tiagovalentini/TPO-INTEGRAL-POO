@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 public class App {
     public static void main(String[] args) throws Exception {
         GestorDeEventos eventos = new GestorDeEventos();
+        ArrayList<Persona> personasEnSistema = new ArrayList<>();
 
         Recurso salonRecurso = new Recurso("Salon");
         Recurso cateringRecurso = new Recurso("Catering");
@@ -25,7 +27,8 @@ public class App {
             5.Inscribir una persona a un evento\n
             6.Gestionar recursos\n
             7.Ver calendario\n
-            8.Cerrar sistema\n
+            8.Notificaciones\n
+            9.Cerrar sistema\n
             Ingrese numero de operacion a realizar: """); 
             opcion = Integer.parseInt(input.nextLine());
             System.err.println();
@@ -131,6 +134,7 @@ public class App {
                         if (!nombre.equals("X")) {
                             Persona participante = new Persona(nombre);
                             eventos.getListadoEventos().get(eventoAModificar).AgregarMiembro(participante);
+                            personasEnSistema.add(participante);
                         }
                     } while (!nombre.equals("X"));
                 break;
@@ -205,7 +209,50 @@ public class App {
                             }
                         }
                     }
+                case 7:
+                /// ver calendario
                 case 8:
+                    System.out.println("""
+                    Que desea realizar:\n
+                    1.Mandar notificaciones a participantes de un evento\n
+                    2.Ver la bandeja de entrada de cierta persona\n
+                    """);
+                    opcion = Integer.parseInt(input.nextLine());
+                    switch (opcion) {
+                        case 1:
+                        System.out.println("A paricipantes de que evento quiere mandar notificaciones? (ingrese nombre)");
+                        do{
+                            nombreEvento = input.nextLine().toUpperCase();
+                        }while(!listaEventos.contains(nombreEvento));
+
+                            for (Persona participante : eventos.getListadoEventos().get(nombreEvento).getMiembros();) {
+
+                                String notificacion = "Hola! " + participante.getNombre() + 
+                                " recuerde que el dia " + eventos.getListadoEventos().get(nombreEvento).getFecha() + " usted esta inscripto al evento " +
+                                eventos.getListadoEventos().get(nombreEvento).getNombreEvento();
+
+                                participante.setNotificacion(notificacion); 
+                            }
+                            break;
+
+                        case 2:
+                        System.out.println("Ingrese el numero de la persona para ver su bandeja de entrada");
+                        int i = 0;
+                            for (Persona persona  : personasEnSistema) {
+                                System.out.println(i + "." + persona.getNombre());
+                                i++;
+                            }
+                            i= Integer.parseInt(input.nextLine());
+                            System.out.println("Notificaciones de " + personasEnSistema.get(i).getNombre());
+
+                            for (String notificacion : personasEnSistema.get(i).getNotificacion()) {
+                                
+                                System.out.println(notificacion);
+                            }
+
+                            break;
+                    }
+                case 9:
                     System.out.println("Gracias por visitar el sistema");
                     break;
                 default:
