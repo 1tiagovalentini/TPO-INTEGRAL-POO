@@ -56,6 +56,7 @@ public class GestorDeEventos {
             eventoAModificar.setNombreEvento(datosAModificar[0].toUpperCase());
             listadoEventos.remove(nombreEvento);
             listadoEventos.put(datosAModificar[0].toUpperCase(), eventoAModificar);
+            
         }
 
         if(!datosAModificar[1].equals("-1")){
