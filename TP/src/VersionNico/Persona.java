@@ -1,11 +1,12 @@
+package VersionNico;
 public class Persona {
     private String nombre;
     private String feedbackEvento;
     private String notificacion;
 
-    public Persona(String nombre) {
+    public Persona(String nombre, String feedbackEvento){
         this.nombre = nombre;
-    
+        this.feedbackEvento = feedbackEvento;
     }
 
     public void setFeedbackEvento(String feedbackEvento) {
