@@ -22,24 +22,35 @@ public class GestorDeEventos {
         
     }
 
-    public void editarEvento(String nombreEvento, int opcionModificacion, String datoAModificar){
+    public void editarEvento(String nombreEvento, String[] datosAModificar){
         Evento eventoAModificar = listadoEventos.get(nombreEvento);
-        switch(opcionModificacion){
-            case 1:
-                eventoAModificar.setNombreEvento(datoAModificar.toUpperCase());
-                listadoEventos.remove(nombreEvento);
-                listadoEventos.put(datoAModificar.toUpperCase(), eventoAModificar);
-                break;
-            case 2:
-                eventoAModificar.setFecha(datoAModificar);
-                break;
-            case 3:
-                eventoAModificar.setUbicacion(datoAModificar);
-                break;
-            case 4:
-                eventoAModificar.setDescripcion(datoAModificar);
-                break;
-        } 
+        /*
+         * modificar nombre
+         * modificar fecha
+         * modificar ubicacion
+         * descripcion
+         */
+
+        if(!datosAModificar[0].equals("-1")){
+            eventoAModificar.setNombreEvento(datosAModificar[0].toUpperCase());
+            listadoEventos.remove(nombreEvento);
+            listadoEventos.put(datosAModificar[0].toUpperCase(), eventoAModificar);
+        }
+
+        if(!datosAModificar[1].equals("-1")){
+            eventoAModificar.setFecha(datosAModificar[1]);
+        }
+
+        if(!datosAModificar[2].equals("-1")){
+            eventoAModificar.setUbicacion(datosAModificar[2]);
+        }
+
+        if(!datosAModificar[3].equals("-1")){
+            eventoAModificar.setUbicacion(datosAModificar[3]);
+        }
+
+        archivoEventos.modificarArchivo(nombreEvento,
+        eventoAModificar.getNombreEvento()+","+eventoAModificar.getFecha()+","+eventoAModificar.getUbicacion()+","+eventoAModificar.getDescripcion()+"\n");
     }
 
     public HashMap<String, Evento> getListadoEventos(){
