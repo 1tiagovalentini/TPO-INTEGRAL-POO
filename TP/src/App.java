@@ -26,16 +26,16 @@ public class App {
         do{
             System.out.print("""
             Que desea realizar:
-            1.Crear un nuevo evento
-            2.Modificar un evento
-            3.Ver eventos
-            4.Ver registro de personas de cierto evento
-            5.Inscribir una persona a un evento
-            6.Gestionar recursos
-            7.Ver calendario
-            8.Notificaciones
-            9.Agregar usuario del sistema
-            69.Cerrar sistema\n
+            1.Crear un nuevo evento +
+            2.Modificar un evento +
+            3.Ver eventos +
+            4.Ver registro de personas de cierto evento +
+            5.Inscribir una persona a un evento +
+            6.Gestionar recursos -
+            7.Ver calendario -
+            8.Notificaciones -
+            9.Agregar usuario del sistema +
+            69.Cerrar sistema +\n
             Ingrese numero de operacion a realizar: """); 
             opcion = Integer.parseInt(input.nextLine());
             System.err.println();
@@ -101,8 +101,7 @@ public class App {
                            respuesta = input.nextLine().toUpperCase();
                         }while(!eventos.getListadoEventos().containsKey(respuesta));
 
-                        Evento evento = eventos.getEvento(respuesta);
-                        for(Iterator<Persona> i = evento.getMiembros().iterator();i.hasNext();){
+                        for(Iterator<Persona> i = eventos.getEvento(respuesta).getMiembros().iterator();i.hasNext();){
                             Persona participante = i.next();
                             System.out.println("- '" + participante.getNombre());
                         }
@@ -112,18 +111,15 @@ public class App {
                     do{
                         respuesta = input.nextLine().toUpperCase();
                     }while(!eventos.getListadoEventos().containsKey(respuesta));
-
                     System.out.println("Ingrese los participantes del evento (ingrese X para dejar de agregar): ");
-                    String nombre;
-                    do {
-                        nombre = input.nextLine();
-                        if (!nombre.equals("X")) {
-                            Persona participante = new Persona(nombre);
-                            eventos.getListadoEventos().get(respuesta).AgregarMiembro(participante);
-                            personasEnSistema.add(participante);
+                    String personaAAgregar = input.nextLine().toUpperCase();
+                    while(!personaAAgregar.equals("X")){
+                        if(eventos.getListadoPersonas().containsKey(personaAAgregar)){
+                            eventos.agregarParticipante(respuesta,personaAAgregar,false);
                         }
-                    } while (!nombre.equals("X"));
-                break;
+                        personaAAgregar = input.nextLine().toUpperCase();
+                    }
+                    break;
                 case 6:
                     System.out.println("Sobre que evento quiere gestionar recursos? (ingrese nombre)");
                     do{
@@ -237,7 +233,7 @@ public class App {
                 case 9:
                     System.out.println("Cual es el nombre del nuevo usuario?");
                     respuesta = input.nextLine().toUpperCase();
-                    while(eventos.getListadoPersona().containsKey(respuesta)){
+                    while(eventos.getListadoPersonas().containsKey(respuesta)){
                         System.out.println("Usuario ya registrado. intente nuevamente");
                         respuesta = input.nextLine().toUpperCase();
                     }

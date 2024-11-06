@@ -5,12 +5,14 @@ public class GestorDeEventos {
     private HashMap<String, Persona> listadoPersonas;
     private ArchivosEventos archivoEventos;
     private ArchivosUsuarios archivoUsuarios;
+    private ArchivosInscripciones archivoInscripciones;
 
     public GestorDeEventos(){
         listadoEventos = new HashMap<>();
         listadoPersonas = new HashMap<>();
         archivoEventos = new ArchivosEventos("historialEventos.txt", this);
         archivoUsuarios = new ArchivosUsuarios("historialUsuarios.txt", this);
+        archivoInscripciones = new ArchivosInscripciones("historialInscripciones", this);
     }
 
     public void crearEvento(String nombreEvento, String fecha, String ubicacion, String descripcion, boolean vieneDelArchivo){
@@ -31,6 +33,13 @@ public class GestorDeEventos {
         listadoPersonas.put(nombrePersona, nuevaPersona);
         if(!vieneDelArchivo){
             archivoUsuarios.escribirArchivo(nombrePersona);
+        }
+    }
+
+    public void agregarParticipante(String nombreEvento, String nombrePersona, boolean vieneDelArchivo){
+        listadoEventos.get(nombreEvento).AgregarMiembro(listadoPersonas.get(nombrePersona));
+        if(!vieneDelArchivo){
+            archivoInscripciones.escribirArchivo(nombreEvento+","+nombrePersona);
         }
     }
 
@@ -73,7 +82,7 @@ public class GestorDeEventos {
         return listadoEventos.get(nombreEvento);
     }
     
-    public HashMap<String, Persona> getListadoPersona(){
+    public HashMap<String, Persona> getListadoPersonas(){
         return listadoPersonas;
     }
 }
