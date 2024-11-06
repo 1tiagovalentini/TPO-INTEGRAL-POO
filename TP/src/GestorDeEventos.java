@@ -2,11 +2,15 @@ import java.util.HashMap;
 
 public class GestorDeEventos {
     private HashMap<String, Evento> listadoEventos;
+    private HashMap<String, Persona> listadoPersonas;
     private ArchivosEventos archivoEventos;
+    private ArchivosUsuarios archivoUsuarios;
 
     public GestorDeEventos(){
         listadoEventos = new HashMap<>();
+        listadoPersonas = new HashMap<>();
         archivoEventos = new ArchivosEventos("historialEventos.txt", this);
+        archivoUsuarios = new ArchivosUsuarios("historialUsuarios.txt", this);
     }
 
     public void crearEvento(String nombreEvento, String fecha, String ubicacion, String descripcion, boolean vieneDelArchivo){
@@ -20,6 +24,14 @@ public class GestorDeEventos {
             System.out.println("Error al cargar evento: el evento ya fue cargado anteriormente");
         }
         
+    }
+
+    public void crearPersona(String nombrePersona, boolean vieneDelArchivo){
+        Persona nuevaPersona = new Persona(nombrePersona);
+        listadoPersonas.put(nombrePersona, nuevaPersona);
+        if(!vieneDelArchivo){
+            archivoUsuarios.escribirArchivo(nombrePersona);
+        }
     }
 
     public void editarEvento(String nombreEvento, String[] datosAModificar){
@@ -50,7 +62,7 @@ public class GestorDeEventos {
         }
 
         archivoEventos.modificarArchivo(nombreEvento,
-        eventoAModificar.getNombreEvento()+","+eventoAModificar.getFecha()+","+eventoAModificar.getUbicacion()+","+eventoAModificar.getDescripcion()+"\n");
+        eventoAModificar.getNombreEvento()+","+eventoAModificar.getFecha()+","+eventoAModificar.getUbicacion()+","+eventoAModificar.getDescripcion());
     }
 
     public HashMap<String, Evento> getListadoEventos(){
@@ -59,5 +71,9 @@ public class GestorDeEventos {
 
     public Evento getEvento(String nombreEvento){
         return listadoEventos.get(nombreEvento);
+    }
+    
+    public HashMap<String, Persona> getListadoPersona(){
+        return listadoPersonas;
     }
 }

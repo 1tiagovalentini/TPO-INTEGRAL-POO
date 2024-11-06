@@ -22,18 +22,20 @@ public class App {
         String ubicacion;
         String descripcion;
         String respuesta;
+        String eventoAModificar;
         do{
             System.out.print("""
-            Que desea realizar:\n
-            1.Crear un nuevo evento\n
-            2.Modificar un evento\n
-            3.Ver eventos\n
-            4.Ver registro de personas de cierto evento\n
-            5.Inscribir una persona a un evento\n
-            6.Gestionar recursos\n
-            7.Ver calendario\n
-            8.Notificaciones\n
-            9.Cerrar sistema\n
+            Que desea realizar:
+            1.Crear un nuevo evento
+            2.Modificar un evento
+            3.Ver eventos
+            4.Ver registro de personas de cierto evento
+            5.Inscribir una persona a un evento
+            6.Gestionar recursos
+            7.Ver calendario
+            8.Notificaciones
+            9.Agregar usuario del sistema
+            69.Cerrar sistema\n
             Ingrese numero de operacion a realizar: """); 
             opcion = Integer.parseInt(input.nextLine());
             System.err.println();
@@ -57,12 +59,11 @@ public class App {
 
                 case 2:
                     Set<String> listaEventos = eventos.getListadoEventos().keySet();
-                    String eventoAModificar;
                     
                     System.out.println("Que evento quiere modificar? (ingrese nombre), X para no hacer nada");
                     do{
                         eventoAModificar = input.nextLine().toUpperCase();
-                    }while(!listaEventos.contains(eventoAModificar) || !(eventoAModificar.equals("X")));
+                    }while(!listaEventos.contains(eventoAModificar) && !(eventoAModificar.equals("X")));
 
                     if (!eventoAModificar.equals("X")) {
                         System.out.println("Ingrese nombre del evento, X para dejar el existente");   
@@ -79,47 +80,38 @@ public class App {
 
                         String[] datosAModificar = {nombreEvento, fecha, ubicacion, descripcion};
 
-                        eventos.editarEvento(nombreEvento, datosAModificar);
+                        eventos.editarEvento(eventoAModificar, datosAModificar);
                     }
+                    break;
                 case 3:
                     if (eventos.getListadoEventos().isEmpty()) {
                         System.out.println("No hay eventos registrados");
                     } else {
                         for(Iterator<Evento> i = eventos.getListadoEventos().values().iterator();i.hasNext();){
                             Evento evento = i.next();
-                            System.out.println("- '" + evento.getNombreEvento());
+                            System.out.println("- '" + evento.getNombreEvento() + "' [" + evento.getFecha()+
+                            "] en " + evento.getUbicacion() +": " + evento.getDescripcion());
                         }
-                        System.out.println("Que evento quiere ver a detalle? (ingrese nombre)");
-                        do{
-                            eventoAModificar = input.nextLine().toUpperCase();
-                        }while(!listaEventos.contains(eventoAModificar));
-
-                        Evento evento = eventos.getEvento(eventoAModificar);
-                        System.out.println("Nombre: " + evento.getNombreEvento() +
-                                        ", Fecha: " + evento.getFecha() +
-                                        ", Ubicación: " + evento.getUbicacion() +
-                                        ", Descripción: " + evento.getDescripcion());
                     }
-                break;
-
+                    System.out.println();
+                    break;                
                 case 4:
                         System.out.println("De que evento quiere ver los participantes? (ingrese nombre)");
                         do{
-                           String eventoAVisualizar = input.nextLine().toUpperCase();
-                        }while(!listaEventos.contains(eventoAModificar));
+                           respuesta = input.nextLine().toUpperCase();
+                        }while(!eventos.getListadoEventos().containsKey(respuesta));
 
-                        Evento evento = eventos.getListadoEventos().get(eventoAModificar);
+                        Evento evento = eventos.getEvento(respuesta);
                         for(Iterator<Persona> i = evento.getMiembros().iterator();i.hasNext();){
                             Persona participante = i.next();
                             System.out.println("- '" + participante.getNombre());
                         }
                 break;
-
                 case 5:
                     System.out.println("A que evento quiere agregar participantes? (ingrese nombre)");
                     do{
-                        eventoAModificar = input.nextLine().toUpperCase();
-                    }while(!listaEventos.contains(eventoAModificar));
+                        respuesta = input.nextLine().toUpperCase();
+                    }while(!eventos.getListadoEventos().containsKey(respuesta));
 
                     System.out.println("Ingrese los participantes del evento (ingrese X para dejar de agregar): ");
                     String nombre;
@@ -127,18 +119,16 @@ public class App {
                         nombre = input.nextLine();
                         if (!nombre.equals("X")) {
                             Persona participante = new Persona(nombre);
-                            eventos.getListadoEventos().get(eventoAModificar).AgregarMiembro(participante);
+                            eventos.getListadoEventos().get(respuesta).AgregarMiembro(participante);
                             personasEnSistema.add(participante);
                         }
                     } while (!nombre.equals("X"));
                 break;
                 case 6:
-                    
-
                     System.out.println("Sobre que evento quiere gestionar recursos? (ingrese nombre)");
                     do{
                         eventoAModificar = input.nextLine().toUpperCase();
-                    }while(!listaEventos.contains(eventoAModificar));
+                    }while(!eventos.getListadoEventos().containsKey(eventoAModificar));
 
                     System.out.println("Ingrese A para agregar un recurso, Q para quitar un recurso, X para salir");
                     respuesta = input.nextLine().toUpperCase();
@@ -202,26 +192,26 @@ public class App {
                         }
                     }
                 case 7:
-                /// ver calendario
+                    break;
                 case 8:
                     System.out.println("""
-                    Que desea realizar:\n
-                    1.Mandar notificaciones a participantes de un evento\n
+                    Que desea realizar:
+                    1.Mandar notificaciones a participantes de un evento
                     2.Ver la bandeja de entrada de cierta persona\n
-                    """);
+                    Ingrese numero de operacion a realizar: """);
                     opcion = Integer.parseInt(input.nextLine());
                     switch (opcion) {
                         case 1:
                         System.out.println("A paricipantes de que evento quiere mandar notificaciones? (ingrese nombre)");
                         do{
-                            nombreEvento = input.nextLine().toUpperCase();
-                        }while(!listaEventos.contains(nombreEvento));
+                            respuesta = input.nextLine().toUpperCase();
+                        }while(!eventos.getListadoEventos().containsKey(respuesta));
 
-                            for (Persona participante : eventos.getListadoEventos().get(nombreEvento).getMiembros()) {
+                            for (Persona participante : eventos.getListadoEventos().get(respuesta).getMiembros()) {
 
                                 String notificacion = "Hola! " + participante.getNombre() + 
-                                " recuerde que el dia " + eventos.getListadoEventos().get(nombreEvento).getFecha() + " usted esta inscripto al evento " +
-                                eventos.getListadoEventos().get(nombreEvento).getNombreEvento();
+                                " recuerde que el dia " + eventos.getListadoEventos().get(respuesta).getFecha() + " usted esta inscripto al evento " +
+                                eventos.getListadoEventos().get(respuesta).getNombreEvento();
 
                                 participante.setNotificacion(notificacion); 
                             }
@@ -245,13 +235,22 @@ public class App {
                             break;
                     }
                 case 9:
+                    System.out.println("Cual es el nombre del nuevo usuario?");
+                    respuesta = input.nextLine().toUpperCase();
+                    while(eventos.getListadoPersona().containsKey(respuesta)){
+                        System.out.println("Usuario ya registrado. intente nuevamente");
+                        respuesta = input.nextLine().toUpperCase();
+                    }
+                    eventos.crearPersona(respuesta, false);
+                    break;
+                case 69:
                     System.out.println("Gracias por visitar el sistema");
                     break;
                 default:
                     System.out.println("Opcion invalida o no desarrollada");
                     break;
             }
-        }while(opcion!=8);
+        }while(opcion!=69);
         input.close();
     }
 }

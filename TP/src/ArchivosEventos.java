@@ -17,9 +17,9 @@ public class ArchivosEventos extends GestorDeArchivos{
             while(linea!=null){
                 String[] datos = linea.split(",");
                 if(datos[0].equals(idEvento)){
-                    archivoModificado = archivoModificado + datoAModificar;
+                    archivoModificado = archivoModificado + datoAModificar + "\n";
                 }else{
-                    archivoModificado = archivoModificado + linea;
+                    archivoModificado = archivoModificado + linea + "\n";
                 }
                 linea = lectura.readLine();
             }
@@ -28,7 +28,7 @@ public class ArchivosEventos extends GestorDeArchivos{
             FileWriter escritura = new FileWriter(archivo);
             escritura.write(archivoModificado);
             escritura.close();
-            
+
         }catch(IOException excepcion){
             System.out.println(excepcion);
         }
