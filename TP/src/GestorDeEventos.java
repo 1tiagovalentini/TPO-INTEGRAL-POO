@@ -12,7 +12,7 @@ public class GestorDeEventos {
         listadoPersonas = new HashMap<>();
         archivoEventos = new ArchivosEventos("historialEventos.txt", this);
         archivoUsuarios = new ArchivosUsuarios("historialUsuarios.txt", this);
-        archivoInscripciones = new ArchivosInscripciones("historialInscripciones", this);
+        archivoInscripciones = new ArchivosInscripciones("historialInscripciones.txt", this);
     }
 
     public void crearEvento(String nombreEvento, String fecha, String ubicacion, String descripcion, boolean vieneDelArchivo){
@@ -56,7 +56,7 @@ public class GestorDeEventos {
             eventoAModificar.setNombreEvento(datosAModificar[0].toUpperCase());
             listadoEventos.remove(nombreEvento);
             listadoEventos.put(datosAModificar[0].toUpperCase(), eventoAModificar);
-            
+            archivoInscripciones.modificarArchivo(nombreEvento, datosAModificar[0]);
         }
 
         if(!datosAModificar[1].equals("-1")){
