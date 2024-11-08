@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,9 +8,11 @@ import java.io.IOException;
 
 public class GestorDeEventos {
     private HashMap<String, Evento> listadoEventos;
+    private ArrayList<Persona> personasEnSistema;
 
     public GestorDeEventos(){
         listadoEventos = new HashMap<>();
+        personasEnSistema = new ArrayList<Persona>();
     }
 
     public void crearEvento(String nombreEvento, String fecha, String ubicacion, String descripcion){
@@ -43,6 +45,14 @@ public class GestorDeEventos {
         } 
     }
 
+    public ArrayList<Persona> getPersonasEnSistema(){
+        return personasEnSistema;
+    }
+
+    public void agregarPersonaASistema(Persona persona){
+        personasEnSistema.add(persona);
+    }
+
     public HashMap<String, Evento> getListadoEventos(){
         return listadoEventos;
     }
@@ -53,14 +63,14 @@ public class GestorDeEventos {
 
     public void cargarDatos(){
         // Cargar datos de eventos
-        String archivo = "TP\\src\\VersionNico\\datos.csv"; // Nombre del archivo
+        String archivo = "TP\\src\\VersionNico\\salida.csv"; // Nombre del archivo
 
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {  // Leer cada línea
                 String[] datos = linea.split(","); // Separar los datos por coma
                 crearEvento(datos[0], datos[1], datos[3], datos[2]); // Crear evento con los datos
-                Persona persona = new Persona(datos[4], datos[5]); // Crear persona con los datos
+                Persona persona = new Persona(datos[4]); // Crear persona con los datos
                 getEvento(datos[0]).AgregarMiembro(persona);// Agregar persona
             }
         } catch (IOException e) {

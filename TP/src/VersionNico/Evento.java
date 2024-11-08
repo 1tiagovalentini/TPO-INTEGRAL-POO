@@ -8,7 +8,6 @@ public class Evento {
     private String descripcion;
     private ArrayList<Persona> miembros;
     private ArrayList<Recurso> recursos;
-    /*private ArrayList<Boolean> asistencia;*/
 
     public Evento(String nombreEvento, String fecha, String ubicacion, String descripcion){ 
         this.nombreEvento = nombreEvento;

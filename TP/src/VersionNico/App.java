@@ -1,4 +1,3 @@
-
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
@@ -8,16 +7,18 @@ import java.util.Set;
 public class App {
 
     public static void menu(){
-        System.out.println("Que desea realizar:\n");
-        System.out.println("1.Crear un nuevo evento\n");
-        System.out.println("2.Modificar un evento\n");
-        System.out.println("3.Ver eventos\n");
-        System.out.println("4.Ver registro de personas de cierto evento\n");
-        System.out.println("5.Inscribir una persona a un evento\n");
-        System.out.println("6.Gestionar recursos\n");
-        System.out.println("7.Ver calendario\n");
-        System.out.println("8.Cerrar sistema\n");
-        System.out.print("Ingrese numero de operacion a realizar: ");
+        System.out.print("""
+            Que desea realizar:
+            1.Crear un nuevo evento\n
+            2.Modificar un evento\n
+            3.Ver eventos\n
+            4.Ver registro de personas de cierto evento\n
+            5.Inscribir una persona a un evento\n
+            6.Gestionar recursos\n
+            7.Ver calendario\n
+            8.Notificaciones\n
+            9.Cerrar sistema\n
+            Ingrese numero de operacion a realizar: """); 
     }
 
     public static void crearEvento(Scanner input, GestorDeEventos eventos){
@@ -59,16 +60,16 @@ public class App {
             System.out.println("Ingrese descripcion del evento, X para dejar el existente");
             String descripcion = input.nextLine();
 
-            if (nombreEvento != "-1") {
+            if (nombreEvento.equals("X")) {
                 eventos.editarEvento(eventoAModificar,1, nombreEvento);
             } 
-            if (fecha != "-1") {
-                eventos.editarEvento(eventoAModificar,2, fecha);
+            if (fecha.equals("X")) {
+                eventos.editarEvento(eventoAModificar,2, fecha);  // cambiaar tema fecha , que se liberen los recursos con el cambio de fecha
             } 
-            if (ubicacion != "-1") {
+            if (ubicacion.equals("X")) {
                 eventos.editarEvento(eventoAModificar,3, ubicacion);
             }
-            if (descripcion != "-1") {
+            if (descripcion.equals("X")) {
                 eventos.editarEvento(eventoAModificar,4, descripcion);
             }
         }
@@ -83,13 +84,13 @@ public class App {
                 System.out.println("- '" + evento.getNombreEvento());
             }
             System.out.println("Que evento quiere ver a detalle? (ingrese nombre)");
-            String eventoAModificar;
+            String eventoAMostrar;
             Set<String> listaEventos = eventos.getListadoEventos().keySet();
             do{
-                eventoAModificar = input.nextLine().toUpperCase();
-            }while(!listaEventos.contains(eventoAModificar));
+                eventoAMostrar = input.nextLine().toUpperCase();
+            }while(!listaEventos.contains(eventoAMostrar));
 
-            Evento evento = eventos.getEvento(eventoAModificar);
+            Evento evento = eventos.getEvento(eventoAMostrar);
             System.out.println("Nombre: " + evento.getNombreEvento() +
                             ", Fecha: " + evento.getFecha() +
                             ", Ubicación: " + evento.getUbicacion() +
@@ -99,13 +100,13 @@ public class App {
 
     public static void verParticipantes(Scanner input, GestorDeEventos eventos){
         System.out.println("De que evento quiere ver los participantes? (ingrese nombre)");
-        String eventoAModificar;
+        String eventoAMostrar;
         Set<String> listaEventos = eventos.getListadoEventos().keySet();
         do{
-            eventoAModificar = input.nextLine().toUpperCase();
-        }while(!listaEventos.contains(eventoAModificar));
+            eventoAMostrar = input.nextLine().toUpperCase();
+        }while(!listaEventos.contains(eventoAMostrar));
 
-        Evento evento = eventos.getEvento(eventoAModificar);
+        Evento evento = eventos.getEvento(eventoAMostrar);
         for(Iterator<Persona> i = evento.getMiembros().iterator();i.hasNext();){
             Persona participante = i.next();
             System.out.println("- '" + participante.getNombre());
@@ -125,8 +126,9 @@ public class App {
         do {
             nombre = input.nextLine();
             if (!nombre.equals("X")) {
-                Persona participante = new Persona(nombre, "feedback");
+                Persona participante = new Persona(nombre);
                 eventos.getListadoEventos().get(eventoAModificar).AgregarMiembro(participante);
+                eventos.agregarPersonaASistema(participante);
             }
         } while (!nombre.equals("X"));
     }
@@ -184,7 +186,7 @@ public class App {
                     break;
             
                 default:
-                    break;
+                    break; // cambiaar tema fecha , que se liberen los recursos con el cambio de fecha
             }
             
         } else if (respuesta.equals("Q")) {
@@ -202,6 +204,58 @@ public class App {
                 }
             }
         }
+    }
+
+    public static void calendario(Scanner input, GestorDeEventos eventos){
+        // hacer
+    }
+
+    public static void notificaciones(Scanner input, GestorDeEventos eventos){
+        System.out.println("""
+            Que desea realizar:
+            1.Mandar notificaciones a participantes de un evento\n
+            2.Ver la bandeja de entrada de cierta persona\n
+            Ingrese numero de operacion a realizar: """);
+            int opcion;
+            String respuesta;
+            opcion = Integer.parseInt(input.nextLine());
+            switch (opcion) {
+                case 1:
+                System.out.println("A paricipantes de que evento quiere mandar notificaciones? (ingrese nombre)");
+                do{
+                    respuesta = input.nextLine().toUpperCase();
+                }while(!eventos.getListadoEventos().containsKey(respuesta));
+
+                Evento eventoCandidato = eventos.getListadoEventos().get(respuesta);
+
+                    for (Persona participante : eventoCandidato.getMiembros()) {
+
+                        String notificacion = "Hola! " + participante.getNombre() + 
+                        " recuerde que el dia " + eventoCandidato.getFecha() + " usted esta inscripto al evento " +
+                        eventoCandidato.getNombreEvento();
+
+                        participante.setNotificacion(notificacion); 
+                    }
+                    break;
+
+                case 2:
+                System.out.println("Ingrese el numero de la persona para ver su bandeja de entrada");
+                int i = 0;
+                    for (Persona persona  : eventos.getPersonasEnSistema()) {
+                        System.out.println(i + "." + persona.getNombre());
+                        i++;
+                    }
+                    i= Integer.parseInt(input.nextLine());
+                    Persona persona = eventos.getPersonasEnSistema().get(i);
+                    System.out.println("Notificaciones de " + persona.getNombre());
+
+                    for (String notificacion : persona.getNotificacion()) {
+                        
+                        System.out.println(notificacion);
+                    }
+
+                    break;
+                }
     }
 
 
@@ -249,8 +303,16 @@ public class App {
                 case "6":
                     gestionarRecursos(input, eventos, salonRecurso, cateringRecurso, audiovisualRecurso);
                 break;
-                    
+
+                case "7":
+                    calendario(input, eventos);
+                break;
+
                 case "8":
+                    notificaciones(input, eventos);
+                break;
+                    
+                case "9":
                     System.out.println("Gracias por visitar el sistema");
                 break;
 
@@ -258,7 +320,7 @@ public class App {
                     System.out.println("Opcion invalida");
                 break;
             }
-        }while(!opcion.equals("8"));
+        }while(!opcion.equals("9"));
         input.close();
 
     }

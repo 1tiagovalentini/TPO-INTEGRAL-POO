@@ -1,24 +1,20 @@
+import java.util.ArrayList;
 
 public class Persona {
     private String nombre;
     private String feedbackEvento;
-    private String notificacion;
+    private ArrayList<String> notificaciones;
 
-    public Persona(String nombre, String feedbackEvento){
+    public Persona(String nombre) {
         this.nombre = nombre;
-        this.feedbackEvento = feedbackEvento;
-    }
-
-    public void setFeedbackEvento(String feedbackEvento) {
-        this.feedbackEvento = feedbackEvento;
     }
 
     public void setNotificacion(String notificacion) {
-        this.notificacion = notificacion;
+        this.notificaciones.add(notificacion);
     }
 
-    public String getNotificacion() {
-        return notificacion;
+    public ArrayList<String> getNotificacion() {
+        return notificaciones;
     }
 
     public String getNombre() {
