@@ -16,18 +16,13 @@ public class GestorDeEventos {
     }
 
     public void crearEvento(String nombreEvento, String fecha, String ubicacion, String descripcion, boolean vieneDelArchivo){
-        if(!listadoEventos.containsKey(nombreEvento)){
-            Evento nuevoEvento = new Evento(nombreEvento, fecha, ubicacion, descripcion);
-            listadoEventos.put(nombreEvento, nuevoEvento);
-            if(!vieneDelArchivo){
-                archivoEventos.escribirArchivo(nombreEvento +","+ fecha +","+ ubicacion +","+ descripcion);
-            }
-        }else{
-            System.out.println("Error al cargar evento: el evento ya fue cargado anteriormente");
+        Evento nuevoEvento = new Evento(nombreEvento, fecha, ubicacion, descripcion);
+        listadoEventos.put(nombreEvento, nuevoEvento);
+        if(!vieneDelArchivo){
+            archivoEventos.escribirArchivo(nombreEvento +","+ fecha +","+ ubicacion +","+ descripcion);
         }
-        
     }
-
+    
     public void crearPersona(String nombrePersona, boolean vieneDelArchivo){
         Persona nuevaPersona = new Persona(nombrePersona);
         listadoPersonas.put(nombrePersona, nuevaPersona);
