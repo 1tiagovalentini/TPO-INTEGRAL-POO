@@ -51,7 +51,11 @@ public class Evento {
     }
 
     public void setFecha(String fecha){
+        for (Recurso recurso : this.recursos) {
+            recurso.getFechasEnUso().remove(this.fecha);
+        }
         this.fecha = fecha;
+        this.recursos.clear();
     }
     
     public void setUbicacion(String ubicacion){

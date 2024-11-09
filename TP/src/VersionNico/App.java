@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
@@ -64,7 +66,7 @@ public class App {
                 eventos.editarEvento(eventoAModificar,1, nombreEvento);
             } 
             if (fecha.equals("X")) {
-                eventos.editarEvento(eventoAModificar,2, fecha);  // cambiaar tema fecha , que se liberen los recursos con el cambio de fecha
+                eventos.editarEvento(eventoAModificar,2, fecha);
             } 
             if (ubicacion.equals("X")) {
                 eventos.editarEvento(eventoAModificar,3, ubicacion);
@@ -186,7 +188,7 @@ public class App {
                     break;
             
                 default:
-                    break; // cambiaar tema fecha , que se liberen los recursos con el cambio de fecha
+                    break;
             }
             
         } else if (respuesta.equals("Q")) {
@@ -207,12 +209,61 @@ public class App {
     }
 
     public static void calendario(Scanner input, GestorDeEventos eventos){
-        // hacer
+        System.out.println("""
+            Que desea realizar:\n
+            1.Ver calendario de la empresa\n
+            2.Ver calendario de una persona en sistema\n
+            Ingrese numero de operacion a realizar: """);
+            int opcion;
+            int i = 0;
+            ArrayList<String> calendario = new ArrayList<String>();
+            opcion = Integer.parseInt(input.nextLine());
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Calendario de la empresa");
+                    
+                    for (Evento evento : eventos.getListadoEventos().values()) {
+                        calendario.add(evento.getFecha() + " " + evento.getNombreEvento());
+                        Collections.sort(calendario);
+                        i++;
+                    }
+                    for (String fecha : calendario) {
+                        System.out.println(fecha);
+                    }
+                
+                    break;
+
+                case 2:
+                System.out.println("Calendario de que persona quiere ver? (ingrese numero)");
+                    for (Persona persona  : eventos.getPersonasEnSistema()) {
+                        System.out.println(i + "." + persona.getNombre());
+                        i++;
+                    }
+                    i= Integer.parseInt(input.nextLine());
+                    Persona persona = eventos.getPersonasEnSistema().get(i);
+                    System.out.println("Calendario de " + persona.getNombre());
+                    i = 0;
+                    for (Evento evento : eventos.getListadoEventos().values()) {
+                        
+                        if (evento.getMiembros().contains(persona)) {
+                            calendario.add(evento.getFecha() + " " + evento.getNombreEvento());
+                            Collections.sort(calendario);
+                            i++;
+                        }
+                    }
+
+                    for (String fecha : calendario) {
+                        System.out.println(fecha);
+                    }
+
+                    break;
+            }
     }
 
     public static void notificaciones(Scanner input, GestorDeEventos eventos){
         System.out.println("""
-            Que desea realizar:
+            Que desea realizar:\n
             1.Mandar notificaciones a participantes de un evento\n
             2.Ver la bandeja de entrada de cierta persona\n
             Ingrese numero de operacion a realizar: """);
@@ -255,7 +306,7 @@ public class App {
                     }
 
                     break;
-                }
+                }// si se modifica la fecha del evento que el usauario (osea el que usa el sistema) vuelva a mandar las notificaciones correspondientes
     }
 
 

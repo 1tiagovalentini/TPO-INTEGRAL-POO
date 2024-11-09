@@ -18,6 +18,10 @@ public class Recurso {
         fechasEnUso.add(fechaAUsar);
     }
 
+    public HashSet<String> getFechasEnUso(){
+        return this.fechasEnUso;
+    }
+
     public void quitarFechaEnUso(String fechaAUsar) {
         fechasEnUso.remove(fechaAUsar);
     }
