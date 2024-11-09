@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Persona {
     private String nombre;
+    private String feedbackEvento;
     private ArrayList<String> notificaciones;
 
     public Persona(String nombre) {
@@ -18,5 +19,9 @@ public class Persona {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getFeedbackEvento() {
+        return feedbackEvento;
     }
 }

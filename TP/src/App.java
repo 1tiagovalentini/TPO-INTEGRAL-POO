@@ -6,9 +6,27 @@ import java.util.Set;
 // revisar posibles casos de modularizar el codigo en metodos dentro de gestor de eventos
 
 public class App {
+    public static void menu(){
+        System.out.print("""
+            Que desea realizar:
+            1.Crear un nuevo evento +
+            2.Modificar un evento +
+            3.Ver eventos +
+            4.Ver registro de personas de cierto evento +
+            5.Inscribir una persona a un evento +
+            6.Gestionar recursos -
+            7.Ver calendario -
+            8.Notificaciones -
+            9.Agregar usuario del sistema +
+            69.Cerrar sistema +\n
+            Ingrese numero de operacion a realizar: """);  
+    }
+
     public static void main(String[] args) throws Exception {
         GestorDeEventos eventos = new GestorDeEventos();
         ArrayList<Persona> personasEnSistema = new ArrayList<>();
+
+
 
         Recurso salonRecurso = new Recurso("Salon");
         Recurso cateringRecurso = new Recurso("Catering");
@@ -23,22 +41,12 @@ public class App {
         String descripcion;
         String respuesta;
         String eventoAModificar;
+
+
         do{
-            System.out.print("""
-            Que desea realizar:
-            1.Crear un nuevo evento +
-            2.Modificar un evento +
-            3.Ver eventos +
-            4.Ver registro de personas de cierto evento +
-            5.Inscribir una persona a un evento +
-            6.Gestionar recursos -
-            7.Ver calendario -
-            8.Notificaciones -
-            9.Agregar usuario del sistema +
-            69.Cerrar sistema +\n
-            Ingrese numero de operacion a realizar: """); 
+            menu();
             opcion = Integer.parseInt(input.nextLine());
-            System.err.println();
+            System.out.println();
 
             switch(opcion){
                 case 1:
@@ -87,10 +95,11 @@ public class App {
                     if (eventos.getListadoEventos().isEmpty()) {
                         System.out.println("No hay eventos registrados");
                     } else {
+                        System.out.println(String.format("\u001B[37;41m%51s%s%52s\u001B[0m", "", "Listado de ventos", ""));
                         for(Iterator<Evento> i = eventos.getListadoEventos().values().iterator();i.hasNext();){
                             Evento evento = i.next();
-                            System.out.println("- '" + evento.getNombreEvento() + "' [" + evento.getFecha()+
-                            "] en " + evento.getUbicacion() +": " + evento.getDescripcion());
+                            System.out.println(String.format("\u001B[30;47m- %-118s\u001B[0m\n\u001B[30;47m%-120s\u001B[0m", evento.getNombreEvento()+
+                            "' ["+evento.getFecha()+"] en "+evento.getUbicacion(), evento.getDescripcion()));
                         }
                     }
                     System.out.println();

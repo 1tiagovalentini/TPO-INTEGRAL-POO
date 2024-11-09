@@ -23,7 +23,7 @@ public class App {
             Ingrese numero de operacion a realizar: """); 
     }
 
-    public static void crearEvento(Scanner input, GestorDeEventos eventos){
+    public static void crearEvento(Scanner input, GestorDeEventos2 eventos){
         System.out.println("Ingrese nombre del evento: ");   
         String nombreEvento = input.nextLine().toUpperCase();
 
@@ -39,7 +39,7 @@ public class App {
         eventos.crearEvento(nombreEvento, fecha, ubicacion, descripcion);
     }
 
-    public static void modificarEvento(Scanner input, GestorDeEventos eventos){
+    public static void modificarEvento(Scanner input, GestorDeEventos2 eventos){
         Set<String> listaEventos = eventos.getListadoEventos().keySet();
         String eventoAModificar;
         
@@ -77,7 +77,7 @@ public class App {
         }
     }
 
-    public static void verEventos(Scanner input, GestorDeEventos eventos){
+    public static void verEventos(Scanner input, GestorDeEventos2 eventos){
         if (eventos.getListadoEventos().isEmpty()) {
             System.out.println("No hay eventos registrados");
         } else {
@@ -100,7 +100,7 @@ public class App {
         }
     }
 
-    public static void verParticipantes(Scanner input, GestorDeEventos eventos){
+    public static void verParticipantes(Scanner input, GestorDeEventos2 eventos){
         System.out.println("De que evento quiere ver los participantes? (ingrese nombre)");
         String eventoAMostrar;
         Set<String> listaEventos = eventos.getListadoEventos().keySet();
@@ -115,7 +115,7 @@ public class App {
         }
     }
 
-    public static void agregarParticipantes(Scanner input, GestorDeEventos eventos){
+    public static void agregarParticipantes(Scanner input, GestorDeEventos2 eventos){
         System.out.println("A que evento quiere agregar participantes? (ingrese nombre)");
         String eventoAModificar;
         Set<String> listaEventos = eventos.getListadoEventos().keySet();
@@ -135,7 +135,7 @@ public class App {
         } while (!nombre.equals("X"));
     }
 
-    public static void gestionarRecursos(Scanner input, GestorDeEventos eventos, Recurso salonRecurso, Recurso cateringRecurso, Recurso audiovisualRecurso){
+    public static void gestionarRecursos(Scanner input, GestorDeEventos2 eventos, Recurso salonRecurso, Recurso cateringRecurso, Recurso audiovisualRecurso){
         System.out.println("Sobre que evento quiere gestionar recursos? (ingrese nombre)");
         String eventoAModificar;
         Set<String> listaEventos = eventos.getListadoEventos().keySet();
@@ -208,7 +208,7 @@ public class App {
         }
     }
 
-    public static void calendario(Scanner input, GestorDeEventos eventos){
+    public static void calendario(Scanner input, GestorDeEventos2 eventos){
         System.out.println("""
             Que desea realizar:\n
             1.Ver calendario de la empresa\n
@@ -261,7 +261,7 @@ public class App {
             }
     }
 
-    public static void notificaciones(Scanner input, GestorDeEventos eventos){
+    public static void notificaciones(Scanner input, GestorDeEventos2 eventos){
         System.out.println("""
             Que desea realizar:\n
             1.Mandar notificaciones a participantes de un evento\n
@@ -308,12 +308,11 @@ public class App {
                     break;
                 }// si se modifica la fecha del evento que el usauario (osea el que usa el sistema) vuelva a mandar las notificaciones correspondientes
     }
-
-
+    
     public static void main(String[] args) throws Exception {
 
         //inicializamos objetos que utilizaremos
-        GestorDeEventos eventos = new GestorDeEventos();
+        GestorDeEventos2 eventos = new GestorDeEventos2();
         Recurso salonRecurso = new Recurso("Salon");
         Recurso cateringRecurso = new Recurso("Catering");
         Recurso audiovisualRecurso = new Recurso("Audiovisual");

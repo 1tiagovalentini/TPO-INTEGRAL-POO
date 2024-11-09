@@ -6,11 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class GestorDeEventos {
+public class GestorDeEventos2 {
     private HashMap<String, Evento> listadoEventos;
     private ArrayList<Persona> personasEnSistema;
 
-    public GestorDeEventos(){
+    public GestorDeEventos2(){
         listadoEventos = new HashMap<>();
         personasEnSistema = new ArrayList<Persona>();
     }
