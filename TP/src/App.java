@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
@@ -57,9 +58,8 @@ public class App {
         datosAModificar[0] = input.nextLine().toUpperCase();
         System.out.println();
 
-        System.out.print("Ingrese fecha del evento en formato (AAAA/MM/DD), X para dejar el existente ");
+        System.out.println("Ingrese fecha del evento en formato (AAAA/MM/DD), X para dejar el existente \n Advertencia: al cambiar la fecha los recursos que no puedan modificar la reserva seran eliminados");
         datosAModificar[1] = input.nextLine();
-        System.out.println();
 
         System.out.print("Ingrese ubicacion del evento, X para dejar el existente");
         datosAModificar[2] = input.nextLine();
@@ -72,7 +72,7 @@ public class App {
         return datosAModificar;
     }
 
-    public static String existeEvento (Scanner input, Set<String> eventosCreados){
+    public static String existeEvento(Scanner input, Set<String> eventosCreados){
         String respuesta;
         System.out.println("En que evento desea hacer la accion? (ingrese nombre), X para no hacer nada");
         do{
@@ -81,12 +81,15 @@ public class App {
         System.out.println();
         return respuesta;
     }
+    
+    public static void mostrarRecursos(Set<String> recursos){
+        for(String r: recursos){
+            System.out.println(r);
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         GestorDeEventos eventos = new GestorDeEventos();
-
-        Recurso salonRecurso = new Recurso("Salon");
-        Recurso cateringRecurso = new Recurso("Catering");
-        Recurso audiovisualRecurso = new Recurso("Audiovisual");
 
         Scanner input = new Scanner(System.in);
 
@@ -140,7 +143,19 @@ public class App {
                         if(eventos.getListadoPersonas().containsKey(personaAAgregar)){
                             eventos.agregarParticipante(eventoAModificar,personaAAgregar,false);
                         }
+                        System.out.println("Ingrese participantes del evento (ingrese X para dejar de agregar): ");
                         personaAAgregar = input.nextLine().toUpperCase();
+                    }
+                    break;
+                case 6:
+                    eventoAModificar = existeEvento(input, eventos.getListadoEventos().keySet());
+
+                    System.out.println("Ingrese A para agregar un recurso, Q para quitar un recurso, X para salir");
+                    respuesta = input.nextLine().toUpperCase();
+
+                    switch (respuesta){
+                        case "A":
+                            System.out.println();
                     }
                     break;
                 /*

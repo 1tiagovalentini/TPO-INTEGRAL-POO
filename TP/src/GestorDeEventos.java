@@ -3,6 +3,7 @@ import java.util.HashMap;
 public class GestorDeEventos {
     private HashMap<String, Evento> listadoEventos;
     private HashMap<String, Persona> listadoPersonas;
+    private HashMap<String, Recurso> listadoRecursos;
     private ArchivosEventos archivoEventos;
     private ArchivosUsuarios archivoUsuarios;
     private ArchivosInscripciones archivoInscripciones;
@@ -68,6 +69,10 @@ public class GestorDeEventos {
 
         archivoEventos.modificarArchivo(nombreEvento,
         eventoAModificar.getNombreEvento()+","+eventoAModificar.getFecha()+","+eventoAModificar.getUbicacion()+","+eventoAModificar.getDescripcion());
+    }
+
+    public void agregarRecurso(Recurso recursoAAgregar){
+        listadoRecursos.put(recursoAAgregar.getNombre(), recursoAAgregar);
     }
 
     public HashMap<String, Evento> getListadoEventos(){
