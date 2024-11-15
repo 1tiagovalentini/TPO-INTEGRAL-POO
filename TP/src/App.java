@@ -155,8 +155,18 @@ public class App {
 
                     switch (respuesta){
                         case "A":
-                            System.out.println();
-                    }
+                            mostrarRecursos(eventos.getListadoRecursos().keySet());
+                            do{
+                                System.out.print("ingrese recurso a agregar: ");
+                                respuesta = input.nextLine().toUpperCase();
+                                System.out.println();
+                            }while(!eventos.getListadoRecursos().keySet().contains(respuesta));
+                            eventos.agregarRecurso(respuesta);
+                            break;
+                        case "Q":
+                            mostrarRecursos(eventos.);
+
+                    }       
                     break;
                 /*
                 case 6:

@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Evento {
     private String nombreEvento;
@@ -7,7 +8,7 @@ public class Evento {
     private String ubicacion;
     private String descripcion;
     private ArrayList<Persona> miembros;
-    private ArrayList<Recurso> recursos;
+    private HashMap<String, Recurso> recursos;
 
     public Evento(String nombreEvento, String fecha, String ubicacion, String descripcion){ 
         this.nombreEvento = nombreEvento;
@@ -38,7 +39,7 @@ public class Evento {
         return this.miembros;
     }
 
-    public ArrayList<Recurso> getRecursos(){
+    public HashMap<String, Recurso> getRecursos(){
         return this.recursos;
     }
 

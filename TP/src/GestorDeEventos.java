@@ -86,4 +86,8 @@ public class GestorDeEventos {
     public HashMap<String, Persona> getListadoPersonas(){
         return listadoPersonas;
     }
+
+    public HashMap<String, Recurso> getListadoRecursos(){
+        return listadoRecursos;
+    }
 }

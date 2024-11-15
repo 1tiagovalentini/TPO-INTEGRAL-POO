@@ -1,19 +1,19 @@
-1,equipo audiiovisual 2
-1,equipo audiiovisual 1
-1,equipo audiiovisual 3
-1,equipo audiiovisual 4
-1,equipo audiiovisual 5
-1,equipo audiiovisual 6
-2,Catering las tentaciones (20 personas), 20
-2,Catering el empacho (200 personas), 200
-2,Catering mediterraneo (1000 personas), 1000
-2,Catering junglares (150 personas), 150
-2,Catering junglares (300 personas), 300
-2,Catering las tentaciones (50 personas), 50
-2,Catering las tentaciones (100 personas), 100
-2,Salon de juntas (10 personas), 10
-2,Salon de juntas grandes (30 personas), 30
-2,Salon de fiestas (50 personas), 50
-2,Salon de fiestas premium (100 personas), 100
-2,Salon de fiestas elite (500 personas), 500
-2,Salon Campado Diamante (1000 personas), 1000
+1,EQUIPO AUDIOVISUAL 2
+1,EQUIPO AUDIOVISUAL 1
+1,EQUIPO AUDIOVISUAL 3
+1,EQUIPO AUDIOVISUAL 4
+1,EQUIPO AUDIOVISUAL 5
+1,EQUIPO AUDIOVISUAL 6
+2,CATERING LAS TENTACIONES (20 PERSONAS), 20
+2,CATERING EL EMPACHO (200 PERSONAS), 200
+2,CATERING MEDITERRANEO (1000 PERSONAS), 1000
+2,CATERING JUNGLARES (150 PERSONAS), 150
+2,CATERING JUNGLARES (300 PERSONAS), 300
+2,CATERING LAS TENTACIONES (50 PERSONAS), 50
+2,CATERING LAS TENTACIONES (100 PERSONAS), 100
+2,SALON DE JUNTAS (10 PERSONAS), 10
+2,SALON DE JUNTAS GRANDES (30 PERSONAS), 30
+2,SALON DE FIESTAS (50 PERSONAS), 50
+2,SALON DE FIESTAS PREMIUM (100 PERSONAS), 100
+2,SALON DE FIESTAS ELITE (500 PERSONAS), 500
+2,SALON CAMPADO DIAMANTE (1000 PERSONAS), 1000
