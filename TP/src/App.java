@@ -176,7 +176,8 @@ public class App {
                             break;
                     }       
                     break;
-                case 8:
+                case 9
+                    case 8:
                     respuesta = existeEnConjunto(input, eventos.getListadoPersonas().keySet(),"En que persona desea hacer la accion? (ingrese nombre)");
                     ArrayList<Evento> notificaciones = eventos.generarNotificaciones(respuesta);
                     System.out.println("Proximos eventos");
@@ -184,51 +185,7 @@ public class App {
                         System.out.println("- ["+e.getFecha()+"] "+e.getNombreEvento());
                     }
                     break;
-                /*
-                case 7:
-                    break;
-                case 8:
-                    System.out.println("""
-                    Que desea realizar:
-                    1.Mandar notificaciones a participantes de un evento
-                    2.Ver la bandeja de entrada de cierta persona\n
-                    Ingrese numero de operacion a realizar: """);
-                    opcion = Integer.parseInt(input.nextLine());
-                    switch (opcion) {
-                        case 1:
-                        System.out.println("A paricipantes de que evento quiere mandar notificaciones? (ingrese nombre)");
-                        do{
-                            respuesta = input.nextLine().toUpperCase();
-                        }while(!eventos.getListadoEventos().containsKey(respuesta));
-
-                            for (Persona participante : eventos.getListadoEventos().get(respuesta).getMiembros()) {
-
-                                String notificacion = "Hola! " + participante.getNombre() + 
-                                " recuerde que el dia " + eventos.getListadoEventos().get(respuesta).getFecha() + " usted esta inscripto al evento " +
-                                eventos.getListadoEventos().get(respuesta).getNombreEvento();
-
-                                participante.setNotificacion(notificacion); 
-                            }
-                            break;
-
-                        case 2:
-                        System.out.println("Ingrese el numero de la persona para ver su bandeja de entrada");
-                        int i = 0;
-                            for (Persona persona  : personasEnSistema) {
-                                System.out.println(i + "." + persona.getNombre());
-                                i++;
-                            }
-                            i= Integer.parseInt(input.nextLine());
-                            System.out.println("Notificaciones de " + personasEnSistema.get(i).getNombre());
-
-                            for (String notificacion : personasEnSistema.get(i).getNotificacion()) {
-                                
-                                System.out.println(notificacion);
-                            }
-
-                            break;
-                    }
-                */
+                
                 case 9:
                     System.out.println("Cual es el nombre del nuevo usuario?");
                     respuesta = input.nextLine().toUpperCase();
