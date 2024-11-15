@@ -17,15 +17,15 @@ public class EquipoAudiovisual extends Recurso{
     }
 
     @Override
-    public boolean editarUsoEvento(Evento eventoConsultante) {
+    public boolean editarUsoEvento(Evento eventoConsultante, String nuevaFecha) {
         boolean resultadoOperacion;
         super.quitarFechaEnUso(eventoConsultante.getFecha());
 
-        if(super.EstaEnUso(eventoConsultante.getFecha())){
+        if(super.EstaEnUso(nuevaFecha)){
             resultadoOperacion = false;
         }else{
             resultadoOperacion = true;
-            super.agregarFechaEnUso(nombre);
+            super.agregarFechaEnUso(nuevaFecha);
         }
         
         return resultadoOperacion;

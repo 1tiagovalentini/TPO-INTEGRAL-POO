@@ -23,11 +23,11 @@ public class SalonOCatering extends Recurso{
     }
 
     @Override
-    public boolean editarUsoEvento(Evento eventoConsultante) {
+    public boolean editarUsoEvento(Evento eventoConsultante, String nuevaFecha) {
         boolean resultadoOperacion;
         super.quitarFechaEnUso(eventoConsultante.getFecha());
 
-        if(!super.EstaEnUso(eventoConsultante.getFecha()) && capacidadApta(eventoConsultante)){
+        if(!super.EstaEnUso(nuevaFecha) && capacidadApta(eventoConsultante)){
             resultadoOperacion = true;
             super.agregarFechaEnUso(nombre);
         }else{

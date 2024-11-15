@@ -7,6 +7,8 @@ public class GestorDeEventos {
     private ArchivosEventos archivoEventos;
     private ArchivosUsuarios archivoUsuarios;
     private ArchivosInscripciones archivoInscripciones;
+    private ArchivosRecursos archivoRecursos;
+    private ArchivosRecursosXEventos archivoRecursoXEvento;
 
     public GestorDeEventos(){
         listadoEventos = new HashMap<>();
@@ -14,6 +16,8 @@ public class GestorDeEventos {
         archivoEventos = new ArchivosEventos("historialEventos.txt", this);
         archivoUsuarios = new ArchivosUsuarios("historialUsuarios.txt", this);
         archivoInscripciones = new ArchivosInscripciones("historialInscripciones.txt", this);
+        archivoRecursos = new ArchivosRecursos("historialRecursos.txt", this);
+        archivoRecursoXEvento = new ArchivosRecursosXEventos("historialResursosEventos.txt", this);
     }
 
     public void crearEvento(String nombreEvento, String fecha, String ubicacion, String descripcion, boolean vieneDelArchivo){
@@ -73,6 +77,17 @@ public class GestorDeEventos {
 
     public void agregarRecurso(Recurso recursoAAgregar){
         listadoRecursos.put(recursoAAgregar.getNombre(), recursoAAgregar);
+    }
+
+    public void agregarRecurso(String evento, String recurso){
+        if(listadoRecursos.get(recurso).agendarEvento(listadoEventos.get(evento))){
+            listadoEventos.get(evento).AgregarRecurso(listadoRecursos.get(recurso));
+        }
+    }
+
+    public void eliminarRecurso(String evento, String recurso){
+        listadoEventos.get(evento).QuitarRecurso(recurso);
+        listadoRecursos.get(recurso).quitarFechaEnUso(listadoEventos.get(evento).getFecha());
     }
 
     public HashMap<String, Evento> getListadoEventos(){

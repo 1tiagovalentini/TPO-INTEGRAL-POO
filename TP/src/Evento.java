@@ -16,7 +16,7 @@ public class Evento {
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
         miembros = new ArrayList<Persona>();
-        recursos = new ArrayList<Recurso>();
+        recursos = new HashMap<>();
     }
 
     public String getNombreEvento(){
@@ -52,8 +52,10 @@ public class Evento {
     }
 
     public void setFecha(String fecha){
-        for (Recurso recurso : this.recursos) {
-            recurso.getFechasEnUso().remove(this.fecha);
+        for (String recurso : this.recursos.keySet()) {
+            if(!recursos.get(recurso).editarUsoEvento(this, fecha)){
+                recursos.remove(recurso);
+            }
         }
         this.fecha = fecha;
         this.recursos.clear();
@@ -68,14 +70,14 @@ public class Evento {
     }
 
     public void AgregarRecurso(Recurso recursoNuevo){
-        this.recursos.add(recursoNuevo);
+        this.recursos.put(recursoNuevo.getNombre(),recursoNuevo);
     }
 
     public void QuitarMiembro(Persona miembro){
         this.miembros.remove(miembro);
     }
 
-    public void QuitarRecurso(Recurso recurso){
+    public void QuitarRecurso(String recurso){
         this.recursos.remove(recurso);
     }
 

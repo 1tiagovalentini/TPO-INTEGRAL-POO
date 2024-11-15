@@ -161,81 +161,20 @@ public class App {
                                 respuesta = input.nextLine().toUpperCase();
                                 System.out.println();
                             }while(!eventos.getListadoRecursos().keySet().contains(respuesta));
-                            eventos.agregarRecurso(respuesta);
+                            eventos.agregarRecurso(eventoAModificar, respuesta);
                             break;
                         case "Q":
-                            mostrarRecursos(eventos.);
-
+                            mostrarRecursos(eventos.getEvento(eventoAModificar).getRecursos().keySet());
+                            do{
+                                System.out.print("ingrese recurso a eliminar: ");
+                                respuesta = input.nextLine().toUpperCase();
+                                System.out.println();
+                            }while(!eventos.getListadoRecursos().keySet().contains(respuesta));
+                            eventos.eliminarRecurso(eventoAModificar, respuesta);
+                            break;
                     }       
                     break;
                 /*
-                case 6:
-                    System.out.println("Sobre que evento quiere gestionar recursos? (ingrese nombre)");
-                    do{
-                        eventoAModificar = input.nextLine().toUpperCase();
-                    }while(!eventos.getListadoEventos().containsKey(eventoAModificar));
-
-                    System.out.println("Ingrese A para agregar un recurso, Q para quitar un recurso, X para salir");
-                    respuesta = input.nextLine().toUpperCase();
-
-                    if (respuesta.equals("A")) {
-                        System.out.println("Recursos: ");
-                        System.out.println("- 'Salon'");
-                        System.out.println("- 'Catering'");
-                        System.out.println("- 'Audiovisual'");
-                        System.out.println("Ingrese el tipo de recurso a agregar (Salon, Catering o Audiovisual) o X para no agregar: ");
-                        String tipo = input.nextLine();
-
-                        switch (tipo.toUpperCase()) {
-
-                            case "SALON":
-                            if (salonRecurso.isEstaEnUso(eventos.getListadoEventos().get(eventoAModificar).getFecha())) {
-                                System.out.println("El salon ya esta en uso en esa fecha");
-                            }else{
-                                eventos.getListadoEventos().get(eventoAModificar).AgregarRecurso(salonRecurso);
-                                salonRecurso.agregarFechaEnUso(eventos.getListadoEventos().get(eventoAModificar).getFecha());
-                                System.out.println("El salon ha sido asignado al evento");
-                            }
-                                break;
-
-                            case "CATERING":
-                            if (cateringRecurso.isEstaEnUso(eventos.getListadoEventos().get(eventoAModificar).getFecha())) {
-                                System.out.println("El catering ya esta en uso en esa fecha");
-                            }else{
-                                eventos.getListadoEventos().get(eventoAModificar).AgregarRecurso(cateringRecurso);
-                                cateringRecurso.agregarFechaEnUso(eventos.getListadoEventos().get(eventoAModificar).getFecha());
-                                System.out.println("El catering ha sido asignado al evento");
-                            }
-                                break;
-                            
-                            case "AUDIOVIDUAL":
-                            if (audiovisualRecurso.isEstaEnUso(eventos.getListadoEventos().get(eventoAModificar).getFecha())) {
-                                System.out.println("El audiovisual ya esta en uso en esa fecha");
-                            }else{
-                                eventos.getListadoEventos().get(eventoAModificar).AgregarRecurso(audiovisualRecurso);
-                                audiovisualRecurso.agregarFechaEnUso(eventos.getListadoEventos().get(eventoAModificar).getFecha());
-                                System.out.println("El audiovisual ha sido asignado al evento");
-                            }
-                                break;
-                        
-                            default:
-                                break;
-                        }
-                        
-                    } else if (respuesta.equals("Q")) {
-                        System.out.println("Recursos del evento: ");
-                    
-                        for(Iterator<Recurso> i = eventos.getListadoEventos().get(eventoAModificar).getRecursos().iterator();i.hasNext();){
-                            Recurso recurso = i.next();
-                            
-                            System.out.println("- '" + recurso.getTipo());
-                            System.out.println("Ingrese Q para quitar el recurso o X para continuar");
-                            respuesta = input.nextLine().toUpperCase();
-                            if (respuesta.equals("Q")) {
-                                eventos.getListadoEventos().get(eventoAModificar).QuitarRecurso(recurso);
-                            }
-                        }
-                    }
                 case 7:
                     break;
                 case 8:

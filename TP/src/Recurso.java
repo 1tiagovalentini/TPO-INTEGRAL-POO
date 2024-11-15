@@ -15,7 +15,7 @@ public abstract class Recurso {
 
     public abstract boolean agendarEvento(Evento eventoConsultante);
 
-    public abstract boolean editarUsoEvento(Evento eventoConsultante);
+    public abstract boolean editarUsoEvento(Evento eventoConsultante, String nuevaFecha);
 
     public void agregarFechaEnUso(String fechaAUsar) {
         fechasEnUso.add(fechaAUsar);
