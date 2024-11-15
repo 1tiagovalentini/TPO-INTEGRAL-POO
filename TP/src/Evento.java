@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Evento {
+public class Evento implements Comparable<Evento>{
     private String nombreEvento;
     private String fecha;
     private String ubicacion;
@@ -76,7 +76,7 @@ public class Evento {
     }
 
     @Override
-    public String toString(){
-        return "'"+this.nombreEvento+"' ["+this.fecha+"] en "+this.ubicacion+": "+this.descripcion;
+    public int compareTo(Evento other){
+        return this.fecha.compareTo(other.getFecha());
     }
 }

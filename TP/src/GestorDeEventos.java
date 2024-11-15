@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class GestorDeEventos {
@@ -109,6 +112,22 @@ public class GestorDeEventos {
         listadoEventos.get(evento).QuitarRecurso(recurso);
         listadoRecursos.get(recurso).quitarFechaEnUso(listadoEventos.get(evento).getFecha());
         archivoRecursoXEvento.eliminarDeArchivo(recurso, evento);
+    }
+
+    public ArrayList<Evento> generarNotificaciones(String nombrePersona){
+        ArrayList<Evento> eventosPersona = new ArrayList<>();
+        Persona personaActual = listadoPersonas.get(nombrePersona);
+        String fechaActual = LocalDate.now().toString();// obtengo fecha actual
+        
+        for(Evento e: listadoEventos.values()){
+            if(e.getMiembros().contains(personaActual) && e.getFecha().compareTo(fechaActual) > 0){
+                eventosPersona.add(e);
+            }
+        }
+        
+        Collections.sort(eventosPersona);
+        
+        return eventosPersona;
     }
 
     public HashMap<String, Evento> getListadoEventos(){
