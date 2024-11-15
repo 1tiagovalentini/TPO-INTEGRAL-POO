@@ -1,3 +1,4 @@
 CUMPLE DE IVAN,2025/10/24,la casa de Ivan,No te enteraste todaviaaaaa!!! se viene la fiesta del administrador del grupo
 CLASE,2024/11/06,uade,clase de POO
 TP PROGRA 3,2024/11/11,UADE,exposicion del tp de progra
+REUNION GRANDE,2024/11/18,edificios hilton,evento muy grande para un salon de juntas normal

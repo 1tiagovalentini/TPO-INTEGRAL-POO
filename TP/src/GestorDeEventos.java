@@ -13,6 +13,7 @@ public class GestorDeEventos {
     public GestorDeEventos(){
         listadoEventos = new HashMap<>();
         listadoPersonas = new HashMap<>();
+        listadoRecursos = new HashMap<>();
         archivoEventos = new ArchivosEventos("historialEventos.txt", this);
         archivoUsuarios = new ArchivosUsuarios("historialUsuarios.txt", this);
         archivoInscripciones = new ArchivosInscripciones("historialInscripciones.txt", this);
@@ -37,9 +38,19 @@ public class GestorDeEventos {
     }
 
     public void agregarParticipante(String nombreEvento, String nombrePersona, boolean vieneDelArchivo){
-        listadoEventos.get(nombreEvento).AgregarMiembro(listadoPersonas.get(nombrePersona));
+        Evento evento = listadoEventos.get(nombreEvento);
+        evento.AgregarMiembro(listadoPersonas.get(nombrePersona));
         if(!vieneDelArchivo){
             archivoInscripciones.escribirArchivo(nombreEvento+","+nombrePersona);
+            for(Recurso r: evento.getRecursos().values()){
+                try{
+                    SalonOCatering recursoActual = (SalonOCatering) r;
+                    if(!recursoActual.capacidadApta(evento)){
+                        this.eliminarRecurso(nombreEvento, r.getNombre());
+                        System.out.println("Se elimino "+r.getNombre()+" ya que no puede suplir su capacidad");
+                    }
+                }finally{}
+            }
         }
     }
 
@@ -79,15 +90,19 @@ public class GestorDeEventos {
         listadoRecursos.put(recursoAAgregar.getNombre(), recursoAAgregar);
     }
 
-    public void agregarRecurso(String evento, String recurso){
+    public void agregarRecurso(String evento, String recurso, boolean vieneDelArchivo){
         if(listadoRecursos.get(recurso).agendarEvento(listadoEventos.get(evento))){
             listadoEventos.get(evento).AgregarRecurso(listadoRecursos.get(recurso));
+            if(!vieneDelArchivo){
+                archivoRecursoXEvento.escribirArchivo(recurso+","+evento);
+            }
         }
     }
 
     public void eliminarRecurso(String evento, String recurso){
         listadoEventos.get(evento).QuitarRecurso(recurso);
         listadoRecursos.get(recurso).quitarFechaEnUso(listadoEventos.get(evento).getFecha());
+        archivoRecursoXEvento.eliminarDeArchivo(recurso, evento);
     }
 
     public HashMap<String, Evento> getListadoEventos(){

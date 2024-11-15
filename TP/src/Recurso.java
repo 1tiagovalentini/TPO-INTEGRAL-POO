@@ -15,7 +15,19 @@ public abstract class Recurso {
 
     public abstract boolean agendarEvento(Evento eventoConsultante);
 
-    public abstract boolean editarUsoEvento(Evento eventoConsultante, String nuevaFecha);
+    public boolean editarFechaUsoEvento(Evento eventoConsultante, String nuevaFecha){
+        boolean resultadoOperacion;
+        quitarFechaEnUso(eventoConsultante.getFecha());
+
+        if(EstaEnUso(nuevaFecha)){
+            resultadoOperacion = false;
+        }else{
+            resultadoOperacion = true;
+            agregarFechaEnUso(nuevaFecha);
+        }
+        
+        return resultadoOperacion;
+    };
 
     public void agregarFechaEnUso(String fechaAUsar) {
         fechasEnUso.add(fechaAUsar);

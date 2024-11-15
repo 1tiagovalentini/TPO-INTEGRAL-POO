@@ -10,16 +10,16 @@ public class App {
     public static void menu(){
         System.out.print("""
             Que desea realizar:
-            1.Crear un nuevo evento +
+            1.Crear un nuevo evento
             2.Modificar un evento +
-            3.Ver eventos +
-            4.Ver registro de personas de cierto evento +
-            5.Inscribir una persona a un evento +
-            6.Gestionar recursos -
+            3.Ver eventos
+            4.Ver registro de personas de cierto evento
+            5.Inscribir una persona a un evento
+            6.Gestionar recursos *+
             7.Ver calendario -
             8.Notificaciones -
-            9.Agregar usuario del sistema +
-            69.Cerrar sistema +\n
+            9.Agregar usuario del sistema
+            69.Cerrar sistema\n
             Ingrese numero de operacion a realizar: """);  
     }
 
@@ -86,6 +86,7 @@ public class App {
         for(String r: recursos){
             System.out.println(r);
         }
+        System.out.println();
     }
 
     public static void main(String[] args) throws Exception {
@@ -137,7 +138,7 @@ public class App {
                     break;
                 case 5:
                     eventoAModificar = existeEvento(input, eventos.getListadoEventos().keySet());
-                    System.out.println("Ingrese los participantes del evento (ingrese X para dejar de agregar): ");
+                    System.out.println("ADVERTENCIA:Si usted contrato un salon o catering tenga en cuenta\nde no exceder el numero permitido de personas para el servicio\nIngrese los participantes del evento (ingrese X para dejar de agregar): ");
                     String personaAAgregar = input.nextLine().toUpperCase();
                     while(!personaAAgregar.equals("X")){
                         if(eventos.getListadoPersonas().containsKey(personaAAgregar)){
@@ -152,6 +153,7 @@ public class App {
 
                     System.out.println("Ingrese A para agregar un recurso, Q para quitar un recurso, X para salir");
                     respuesta = input.nextLine().toUpperCase();
+                    System.out.println();
 
                     switch (respuesta){
                         case "A":
@@ -161,7 +163,7 @@ public class App {
                                 respuesta = input.nextLine().toUpperCase();
                                 System.out.println();
                             }while(!eventos.getListadoRecursos().keySet().contains(respuesta));
-                            eventos.agregarRecurso(eventoAModificar, respuesta);
+                            eventos.agregarRecurso(eventoAModificar, respuesta, false);
                             break;
                         case "Q":
                             mostrarRecursos(eventos.getEvento(eventoAModificar).getRecursos().keySet());

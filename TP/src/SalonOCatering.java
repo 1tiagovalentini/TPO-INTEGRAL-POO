@@ -6,7 +6,7 @@ public class SalonOCatering extends Recurso{
         this.cantidadMaximaDelServicio = cantidadMaximaDelServicio;
     }
 
-    private boolean capacidadApta(Evento eventoConsultante){
+    public boolean capacidadApta(Evento eventoConsultante){
         return eventoConsultante.getMiembros().size() <= cantidadMaximaDelServicio;
     }
 
@@ -19,21 +19,6 @@ public class SalonOCatering extends Recurso{
         }else{
             resultadoOperacion=false;
         }
-        return resultadoOperacion;
-    }
-
-    @Override
-    public boolean editarUsoEvento(Evento eventoConsultante, String nuevaFecha) {
-        boolean resultadoOperacion;
-        super.quitarFechaEnUso(eventoConsultante.getFecha());
-
-        if(!super.EstaEnUso(nuevaFecha) && capacidadApta(eventoConsultante)){
-            resultadoOperacion = true;
-            super.agregarFechaEnUso(nombre);
-        }else{
-            resultadoOperacion = false;
-        }
-        
         return resultadoOperacion;
     }
 
