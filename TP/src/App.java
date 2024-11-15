@@ -176,8 +176,7 @@ public class App {
                             break;
                     }       
                     break;
-                case 9
-                    case 8:
+                case 8:
                     respuesta = existeEnConjunto(input, eventos.getListadoPersonas().keySet(),"En que persona desea hacer la accion? (ingrese nombre)");
                     ArrayList<Evento> notificaciones = eventos.generarNotificaciones(respuesta);
                     System.out.println("Proximos eventos");
