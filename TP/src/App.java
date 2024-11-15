@@ -16,7 +16,7 @@ public class App {
             5.Inscribir una persona a un evento
             6.Gestionar recursos
             7.Ver calendario -
-            8.Notificaciones +
+            8.Notificaciones
             9.Agregar usuario del sistema
             69.Cerrar sistema\n
             Ingrese numero de operacion a realizar: """);  
