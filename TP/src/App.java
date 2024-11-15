@@ -15,7 +15,7 @@ public class App {
             4.Ver registro de personas de cierto evento
             5.Inscribir una persona a un evento
             6.Gestionar recursos
-            7.Ver calendario -
+            7.Ver calendario +
             8.Notificaciones
             9.Agregar usuario del sistema
             69.Cerrar sistema\n
@@ -176,6 +176,12 @@ public class App {
                             break;
                     }       
                     break;
+
+                case 7:
+                    eventos.generarCalendario();
+                    break;
+
+                    
                 case 8:
                     respuesta = existeEnConjunto(input, eventos.getListadoPersonas().keySet(),"En que persona desea hacer la accion? (ingrese nombre)");
                     ArrayList<Evento> notificaciones = eventos.generarNotificaciones(respuesta);

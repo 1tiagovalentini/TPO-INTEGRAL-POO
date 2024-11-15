@@ -2,6 +2,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import javax.swing.JPopupMenu.Separator;
 
 public class GestorDeEventos {
     private HashMap<String, Evento> listadoEventos;
@@ -120,7 +124,7 @@ public class GestorDeEventos {
         String fechaActual = LocalDate.now().toString();// obtengo fecha actual
         
         for(Evento e: listadoEventos.values()){
-            if(e.getMiembros().contains(personaActual) && e.getFecha().compareTo(fechaActual) > 0){
+            if(e.getMiembros().contains(personaActual) && e.getFecha().compareTo(fechaActual) >= 0){
                 eventosPersona.add(e);
             }
         }
@@ -128,6 +132,143 @@ public class GestorDeEventos {
         Collections.sort(eventosPersona);
         
         return eventosPersona;
+    }
+
+    private String mesATexto(int mes){
+        String mesTexto = "";
+        switch(mes){
+            case 1:
+                mesTexto = "Enero";
+                break;
+            case 2:
+                mesTexto = "Febrero";
+                break;
+            case 3:
+                mesTexto = "Marzo";
+                break;
+            case 4:
+                mesTexto = "Abril";
+                break;
+            case 5:
+                mesTexto = "Mayo";
+                break;
+            case 6:
+                mesTexto = "Junio";
+                break;
+            case 7:
+                mesTexto = "Julio";
+                break;
+            case 8:
+                mesTexto = "Agosto";
+                break;
+            case 9:
+                mesTexto = "Septiembre";
+                break;
+            case 10:
+                mesTexto = "Octubre";
+                break;
+            case 11:
+                mesTexto = "Nomviembre";
+                break;
+            case 12:
+                mesTexto = "Diciembre";
+                break;
+        }
+        return mesTexto;
+    }
+
+    private int cantDiasMes(int mes){
+        int cantDias = 0;
+        switch(mes){
+            case 1:
+                cantDias = 31;
+                break;
+            case 2:
+                cantDias = 28;
+                break;
+            case 3:
+                cantDias = 31;
+                break;
+            case 4:
+                cantDias = 30;
+                break;
+            case 5:
+                cantDias = 31;
+                break;
+            case 6:
+                cantDias = 30;
+                break;
+            case 7:
+                cantDias = 31;
+                break;
+            case 8:
+                cantDias = 31;
+                break;
+            case 9:
+                cantDias = 30;
+                break;
+            case 10:
+                cantDias = 31;
+                break;
+            case 11:
+                cantDias = 30;
+                break;
+            case 12:
+                cantDias = 31;
+                break;
+        }
+        return cantDias;
+    }
+
+    public ArrayList<Evento> generarCalendario(){
+        String calendario = "";        
+        
+        String[] fechaActual = LocalDate.now().toString().split("-");//obtener fecha actual partida en año, mes y dia
+        String[] fechaEventoPartida;
+        HashSet<Integer> diasDondeHayEvento = new HashSet<>();
+        ArrayList<Evento> eventosDelMes = new ArrayList<>();
+
+        for(Evento e: this.listadoEventos.values()){
+            fechaEventoPartida = e.getFecha().split("-");
+            if(fechaEventoPartida[0].equals(fechaActual[0]) && fechaEventoPartida[1].equals(fechaActual[1])){
+                eventosDelMes.add(e);
+                diasDondeHayEvento.add(Integer.parseInt(fechaEventoPartida[2]));
+            }
+        }
+
+        Collections.sort(eventosDelMes);
+
+        calendario = calendario + String.format("%8s%-4s%9s\n", "",fechaActual[0],"");
+        calendario = calendario + String.format("%5s%-11s%5s\n", "",mesATexto(Integer.parseInt(fechaActual[1])),"");
+        
+        int dia = 1;
+        int semana = 1;
+        String semanaDias = "";
+        String semanaEventos = "";
+        while(dia <= cantDiasMes(Integer.parseInt(fechaActual[1]))){
+            if(semana <= 7){
+                semanaDias = semanaDias + String.format("%-3s", dia);
+                if(diasDondeHayEvento.contains(dia)){
+                    semanaEventos = semanaEventos + String.format("%1s%s%1s", "","*","");
+                }else{
+                    semanaEventos = semanaEventos + String.format("%3s","");
+                }
+                dia++;
+                semana++;
+            }else{
+                semana = 1;
+                calendario = calendario + semanaDias + "\n";
+                calendario = calendario + semanaEventos + "\n";
+                semanaDias = "";
+                semanaEventos = "";
+            }
+        }
+        /*Agrego la ultima semana que nunca que llega a cargar*/
+        calendario = calendario + semanaDias + "\n";
+        calendario = calendario + semanaEventos + "\n";
+        System.out.println(calendario);
+
+        return eventosDelMes;
     }
 
     public HashMap<String, Evento> getListadoEventos(){
