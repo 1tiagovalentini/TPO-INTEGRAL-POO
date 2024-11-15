@@ -52,13 +52,7 @@ public class Evento {
     }
 
     public void setFecha(String fecha){
-        for (String recurso : this.recursos.keySet()) {
-            if(!recursos.get(recurso).editarUsoEvento(this, fecha)){
-                recursos.remove(recurso);
-            }
-        }
         this.fecha = fecha;
-        this.recursos.clear();
     }
     
     public void setUbicacion(String ubicacion){

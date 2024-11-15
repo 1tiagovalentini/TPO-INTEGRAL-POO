@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
@@ -11,11 +9,11 @@ public class App {
         System.out.print("""
             Que desea realizar:
             1.Crear un nuevo evento
-            2.Modificar un evento +
+            2.Modificar un evento
             3.Ver eventos
             4.Ver registro de personas de cierto evento
             5.Inscribir una persona a un evento
-            6.Gestionar recursos *+
+            6.Gestionar recursos
             7.Ver calendario -
             8.Notificaciones -
             9.Agregar usuario del sistema

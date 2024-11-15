@@ -63,22 +63,28 @@ public class GestorDeEventos {
          * descripcion
          */
 
-        if(!datosAModificar[0].equals("-1")){
+        if(!datosAModificar[0].equals("X")){
             eventoAModificar.setNombreEvento(datosAModificar[0].toUpperCase());
             listadoEventos.remove(nombreEvento);
             listadoEventos.put(datosAModificar[0].toUpperCase(), eventoAModificar);
             archivoInscripciones.modificarArchivo(nombreEvento, datosAModificar[0]);
         }
 
-        if(!datosAModificar[1].equals("-1")){
+        if(!datosAModificar[1].equals("X")){
+            for(Recurso r: eventoAModificar.getRecursos().values()){
+                if(!r.editarFechaUsoEvento(eventoAModificar, datosAModificar[1])){
+                    this.eliminarRecurso(nombreEvento, r.getNombre());
+                    System.out.println("Se elimino "+r.getNombre()+" ya que el recurso esta reservado en la nueva fecha");
+                }
+            }
             eventoAModificar.setFecha(datosAModificar[1]);
         }
 
-        if(!datosAModificar[2].equals("-1")){
+        if(!datosAModificar[2].equals("X")){
             eventoAModificar.setUbicacion(datosAModificar[2]);
         }
 
-        if(!datosAModificar[3].equals("-1")){
+        if(!datosAModificar[3].equals("X")){
             eventoAModificar.setUbicacion(datosAModificar[3]);
         }
 

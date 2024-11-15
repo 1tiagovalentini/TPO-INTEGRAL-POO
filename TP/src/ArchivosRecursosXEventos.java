@@ -16,7 +16,7 @@ public class ArchivosRecursosXEventos extends GestorDeArchivos{
             String linea = lectura.readLine();
             while(linea!=null){
                 String[] datos = linea.split(",");
-                if(!datos[0].equals(recursoAEliminar) && !datos[1].equals(eventoAEliminar)){
+                if(!(datos[1].equals(eventoAEliminar) && datos[0].equals(recursoAEliminar))){
                     archivoModificado = archivoModificado + linea + "\n";
                 }
                 linea = lectura.readLine();
