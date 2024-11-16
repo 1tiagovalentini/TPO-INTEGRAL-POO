@@ -67,10 +67,6 @@ public class Evento implements Comparable<Evento>{
         this.recursos.put(recursoNuevo.getNombre(),recursoNuevo);
     }
 
-    public void QuitarMiembro(Persona miembro){
-        this.miembros.remove(miembro);
-    }
-
     public void QuitarRecurso(String recurso){
         this.recursos.remove(recurso);
     }

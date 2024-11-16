@@ -15,10 +15,10 @@ public class App {
             4.Ver registro de personas de cierto evento
             5.Inscribir una persona a un evento
             6.Gestionar recursos
-            7.Ver calendario +
+            7.Ver calendario
             8.Notificaciones
             9.Agregar usuario del sistema
-            69.Cerrar sistema\n
+            10.Cerrar sistema\n
             Ingrese numero de operacion a realizar: """);  
     }
 
@@ -53,18 +53,18 @@ public class App {
     public static String[] formularioEditarEvento(Scanner input){
         String[] datosAModificar = new String[4];
 
-        System.out.print("Ingrese nombre del evento, X para dejar el existente");   
+        System.out.print("Ingrese nombre del evento, X para dejar el existente: ");   
         datosAModificar[0] = input.nextLine().toUpperCase();
         System.out.println();
 
         System.out.println("Ingrese fecha del evento en formato (AAAA-MM-DD), X para dejar el existente \n Advertencia: al cambiar la fecha los recursos que no puedan modificar la reserva seran eliminados");
         datosAModificar[1] = input.nextLine();
 
-        System.out.print("Ingrese ubicacion del evento, X para dejar el existente");
+        System.out.print("Ingrese ubicacion del evento, X para dejar el existente: ");
         datosAModificar[2] = input.nextLine();
         System.out.println();
         
-        System.out.print("Ingrese descripcion del evento, X para dejar el existente");
+        System.out.print("Ingrese descripcion del evento, X para dejar el existente: ");
         datosAModificar[3] = input.nextLine();
         System.out.println();
 
@@ -83,10 +83,24 @@ public class App {
     }
     
     public static void mostrarRecursos(Set<String> recursos){
+        System.out.println(String.format("\u001B[37;44m%50s%s%50s\u001B[0m", "", "Listado de recursos", ""));
         for(String r: recursos){
-            System.out.println(r);
+            System.out.println(String.format("\u001B[30;47m %-118s\u001B[0m",r));
         }
         System.out.println();
+    }
+
+    public static void listarEventos(ArrayList<Evento> eventos){
+        if (eventos.isEmpty()) {
+            System.out.println("No hay eventos registrados");
+        } else {
+            System.out.println(String.format("\u001B[37;41m%52s%s%52s\u001B[0m", "", "Listado de eventos", ""));
+            for(Iterator<Evento> i = eventos.iterator();i.hasNext();){
+                Evento evento = i.next();
+                System.out.println(String.format("\u001B[30;47m- %-120s\u001B[0m\n\u001B[30;47m%-122s\u001B[0m","'"+evento.getNombreEvento()+
+                "' ["+evento.getFecha()+"] en "+evento.getUbicacion(), evento.getDescripcion()));
+            }
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -108,37 +122,33 @@ public class App {
                     String[] datosEvento = formularioIngresarEvento(input, eventos.getListadoEventos().keySet());
                     eventos.crearEvento(datosEvento[0],datosEvento[1],datosEvento[2],datosEvento[3], false);
                     break;
+
                 case 2:
                     eventoAModificar = existeEnConjunto(input, eventos.getListadoEventos().keySet(),"En que evento desea hacer la accion? (ingrese nombre)");
                     if(!eventoAModificar.equals("X")){
                         eventos.editarEvento(eventoAModificar, formularioEditarEvento(input));
                     }
                     break;
+
                 case 3:
-                    if (eventos.getListadoEventos().isEmpty()) {
-                        System.out.println("No hay eventos registrados");
-                    } else {
-                        System.out.println(String.format("\u001B[37;41m%52s%s%52s\u001B[0m", "", "Listado de eventos", ""));
-                        for(Iterator<Evento> i = eventos.getListadoEventos().values().iterator();i.hasNext();){
-                            Evento evento = i.next();
-                            System.out.println(String.format("\u001B[30;47m- %-120s\u001B[0m\n\u001B[30;47m%-122s\u001B[0m","'"+evento.getNombreEvento()+
-                            "' ["+evento.getFecha()+"] en "+evento.getUbicacion(), evento.getDescripcion()));
-                        }
-                    }
+                    listarEventos(new ArrayList<>(eventos.getListadoEventos().values()));
                     break;
+
                 case 4:
                     eventoAModificar = existeEnConjunto(input, eventos.getListadoEventos().keySet(),"En que evento desea hacer la accion? (ingrese nombre)");
+                    
                     if(!eventoAModificar.equals("X")){
                         System.out.println(String.format("\u001B[37;44m%22s%s%22s\u001B[0m", "", "Listado de participantes", ""));
                         for(Iterator<Persona> i = eventos.getEvento(eventoAModificar).getMiembros().iterator();i.hasNext();){
                             Persona participante = i.next();
-                            System.out.println(String.format("\u001B[30;47m- %-66s\u001B[0m", participante.getNombre()));
+                            System.out.println(String.format("\u001B[30;47m  %-66s\u001B[0m", participante.getNombre()));
                         }
                     }
                     break;
+
                 case 5:
                     eventoAModificar = existeEnConjunto(input, eventos.getListadoEventos().keySet(),"En que evento desea hacer la accion? (ingrese nombre)");
-                    System.out.println("ADVERTENCIA:Si usted contrato un salon o catering tenga en cuenta\nde no exceder el numero permitido de personas para el servicio\nIngrese los participantes del evento (ingrese X para dejar de agregar): ");
+                    System.out.println("\u001B[30;41mADVERTENCIA:Si usted contrato un salon o catering tenga en cuenta de no exceder el numero permitido de personas para el servicio\u001B[0m\nIngrese los participantes del evento (ingrese X para dejar de agregar): ");
                     String personaAAgregar = input.nextLine().toUpperCase();
                     while(!personaAAgregar.equals("X")){
                         if(eventos.getListadoPersonas().containsKey(personaAAgregar)){
@@ -148,10 +158,11 @@ public class App {
                         personaAAgregar = input.nextLine().toUpperCase();
                     }
                     break;
+
                 case 6:
                     eventoAModificar = existeEnConjunto(input, eventos.getListadoEventos().keySet(),"En que evento desea hacer la accion? (ingrese nombre)");
 
-                    System.out.println("Ingrese A para agregar un recurso, Q para quitar un recurso, X para salir");
+                    System.out.println("Ingrese A para agregar un recurso, Q para quitar un recurso, cualquier otra tecla para salir");
                     respuesta = input.nextLine().toUpperCase();
                     System.out.println();
 
@@ -178,19 +189,14 @@ public class App {
                     break;
 
                 case 7:
-                    eventos.generarCalendario();
+                    listarEventos(eventos.generarCalendario());
                     break;
 
-                    
                 case 8:
                     respuesta = existeEnConjunto(input, eventos.getListadoPersonas().keySet(),"En que persona desea hacer la accion? (ingrese nombre)");
                     ArrayList<Evento> notificaciones = eventos.generarNotificaciones(respuesta);
-                    System.out.println("Proximos eventos");
-                    for(Evento e: notificaciones){
-                        System.out.println("- ["+e.getFecha()+"] "+e.getNombreEvento());
-                    }
-                    break;
-                
+                    listarEventos(notificaciones);
+
                 case 9:
                     System.out.println("Cual es el nombre del nuevo usuario?");
                     respuesta = input.nextLine().toUpperCase();
@@ -200,7 +206,8 @@ public class App {
                     }
                     eventos.crearPersona(respuesta, false);
                     break;
-                case 69:
+                    
+                case 10:
                     System.out.println("Gracias por visitar el sistema");
                     break;
                 default:
@@ -208,7 +215,7 @@ public class App {
                     break;
             }
             System.out.println();
-        }while(opcion!=69);
+        }while(opcion!=10);
         input.close();
     }
 }

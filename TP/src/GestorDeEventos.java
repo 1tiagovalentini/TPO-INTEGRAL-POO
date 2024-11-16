@@ -3,9 +3,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-
-import javax.swing.JPopupMenu.Separator;
 
 public class GestorDeEventos {
     private HashMap<String, Evento> listadoEventos;
@@ -237,35 +234,35 @@ public class GestorDeEventos {
         }
 
         Collections.sort(eventosDelMes);
-
-        calendario = calendario + String.format("%8s%-4s%9s\n", "",fechaActual[0],"");
-        calendario = calendario + String.format("%5s%-11s%5s\n", "",mesATexto(Integer.parseInt(fechaActual[1])),"");
+        
+        calendario = calendario + String.format("\u001B[37;41m%19s%-4s%19s\u001B[0m\n", "",fechaActual[0],"");
+        calendario = calendario + String.format("\u001B[37;41m%16s%-10s%16s\u001B[0m\n", "",mesATexto(Integer.parseInt(fechaActual[1])),"");
         
         int dia = 1;
         int semana = 1;
-        String semanaDias = "";
-        String semanaEventos = "";
+        String semanaDias = "\u001B[30;47m";
+        String semanaEventos = "\u001B[30;47m";
         while(dia <= cantDiasMes(Integer.parseInt(fechaActual[1]))){
             if(semana <= 7){
-                semanaDias = semanaDias + String.format("%-3s", dia);
+                semanaDias = semanaDias + String.format("%2s%2s%2s", "",dia,"");
                 if(diasDondeHayEvento.contains(dia)){
-                    semanaEventos = semanaEventos + String.format("%1s%s%1s", "","*","");
+                    semanaEventos = semanaEventos + String.format("%2s%2s%2s", "","**","");
                 }else{
-                    semanaEventos = semanaEventos + String.format("%3s","");
+                    semanaEventos = semanaEventos + String.format("%6s","");
                 }
                 dia++;
                 semana++;
             }else{
                 semana = 1;
-                calendario = calendario + semanaDias + "\n";
-                calendario = calendario + semanaEventos + "\n";
-                semanaDias = "";
-                semanaEventos = "";
+                calendario = calendario + semanaDias + "\u001B[0m\n";
+                calendario = calendario + semanaEventos + "\u001B[0m\n";
+                semanaDias = "\u001B[30;47m";
+                semanaEventos = "\u001B[30;47m";
             }
         }
         /*Agrego la ultima semana que nunca que llega a cargar*/
-        calendario = calendario + semanaDias + "\n";
-        calendario = calendario + semanaEventos + "\n";
+        calendario = calendario + String.format("%-50s\u001B[0m\n",semanaDias);
+        calendario = calendario + String.format("%-50s\u001B[0m\n",semanaEventos);
         System.out.println(calendario);
 
         return eventosDelMes;
