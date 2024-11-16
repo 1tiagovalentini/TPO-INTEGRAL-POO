@@ -153,6 +153,8 @@ public class App {
                     while(!personaAAgregar.equals("X")){
                         if(eventos.getListadoPersonas().containsKey(personaAAgregar)){
                             eventos.agregarParticipante(eventoAModificar,personaAAgregar,false);
+                        }else{
+                            System.out.println("La persona que solicito no se encuentra en sistema. Por favor agregela antes");
                         }
                         System.out.println("Ingrese participantes del evento (ingrese X para dejar de agregar): ");
                         personaAAgregar = input.nextLine().toUpperCase();
