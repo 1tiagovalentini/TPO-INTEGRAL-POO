@@ -1,6 +1,6 @@
 # TPO-INTEGRAL-POO
 ## INFROME
-- [Infrome 📄]()
+- [Infrome 📄](TPPOO.pdf)
 ## DIAGRAMAS
 ### Diagrama de Clases
 -![Diagrama de clases](DiagramaDeClases.png)
