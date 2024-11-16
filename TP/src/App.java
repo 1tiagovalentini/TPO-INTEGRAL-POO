@@ -196,8 +196,7 @@ public class App {
 
                 case 8:
                     respuesta = existeEnConjunto(input, eventos.getListadoPersonas().keySet(),"En que persona desea hacer la accion? (ingrese nombre)");
-                    ArrayList<Evento> notificaciones = eventos.generarNotificaciones(respuesta);
-                    listarEventos(notificaciones);
+                    listarEventos(eventos.generarNotificaciones(respuesta));
 
                 case 9:
                     System.out.println("Cual es el nombre del nuevo usuario?");
