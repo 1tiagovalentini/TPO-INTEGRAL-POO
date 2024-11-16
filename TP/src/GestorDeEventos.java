@@ -72,6 +72,7 @@ public class GestorDeEventos {
             listadoEventos.remove(nombreEvento);
             listadoEventos.put(datosAModificar[0].toUpperCase(), eventoAModificar);
             archivoInscripciones.modificarArchivo(nombreEvento, datosAModificar[0]);
+            archivoRecursoXEvento.modificarArchivo(nombreEvento, datosAModificar[0]);
         }
 
         if(!datosAModificar[1].equals("X")){
@@ -176,44 +177,15 @@ public class GestorDeEventos {
 
     private int cantDiasMes(int mes){
         int cantDias = 0;
-        switch(mes){
-            case 1:
-                cantDias = 31;
-                break;
-            case 2:
-                cantDias = 28;
-                break;
-            case 3:
-                cantDias = 31;
-                break;
-            case 4:
-                cantDias = 30;
-                break;
-            case 5:
-                cantDias = 31;
-                break;
-            case 6:
-                cantDias = 30;
-                break;
-            case 7:
-                cantDias = 31;
-                break;
-            case 8:
-                cantDias = 31;
-                break;
-            case 9:
-                cantDias = 30;
-                break;
-            case 10:
-                cantDias = 31;
-                break;
-            case 11:
-                cantDias = 30;
-                break;
-            case 12:
-                cantDias = 31;
-                break;
+
+        if (mes ==1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
+            cantDias = 31;
+        }else if(mes == 4 || mes == 6 || mes == 9 || mes == 11){
+            cantDias = 30;
+        }else{
+            cantDias = 28;
         }
+        
         return cantDias;
     }
 

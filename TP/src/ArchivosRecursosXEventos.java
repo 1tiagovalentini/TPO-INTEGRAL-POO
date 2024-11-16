@@ -32,7 +32,7 @@ public class ArchivosRecursosXEventos extends GestorDeArchivos{
         }
     }
 
-    public void modificarArchivo(String idEvento, String datoAModificar){
+    public void modificarArchivo(String nombreEventoAntiguo, String nombreEventoNuevo){
         String archivoModificado = "";
         try{
             FileReader lector = new FileReader(archivo);
@@ -40,8 +40,8 @@ public class ArchivosRecursosXEventos extends GestorDeArchivos{
             String linea = lectura.readLine();
             while(linea!=null){
                 String[] datos = linea.split(",");
-                if(datos[0].equals(idEvento)){
-                    archivoModificado = archivoModificado + datoAModificar + "\n";
+                if(datos[1].equals(nombreEventoAntiguo)){
+                    archivoModificado = archivoModificado + datos[0] + "," + nombreEventoNuevo + "\n";
                 }else{
                     archivoModificado = archivoModificado + linea + "\n";
                 }
