@@ -1,13 +1,14 @@
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Evento {
+public class Evento implements Comparable<Evento>{
     private String nombreEvento;
     private String fecha;
     private String ubicacion;
     private String descripcion;
     private ArrayList<Persona> miembros;
-    private ArrayList<Recurso> recursos;
+    private HashMap<String, Recurso> recursos;
 
     public Evento(String nombreEvento, String fecha, String ubicacion, String descripcion){ 
         this.nombreEvento = nombreEvento;
@@ -15,7 +16,7 @@ public class Evento {
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
         miembros = new ArrayList<Persona>();
-        recursos = new ArrayList<Recurso>();
+        recursos = new HashMap<>();
     }
 
     public String getNombreEvento(){
@@ -38,7 +39,7 @@ public class Evento {
         return this.miembros;
     }
 
-    public ArrayList<Recurso> getRecursos(){
+    public HashMap<String, Recurso> getRecursos(){
         return this.recursos;
     }
 
@@ -51,11 +52,7 @@ public class Evento {
     }
 
     public void setFecha(String fecha){
-        for (Recurso recurso : this.recursos) {
-            recurso.getFechasEnUso().remove(this.fecha);
-        }
         this.fecha = fecha;
-        this.recursos.clear();
     }
     
     public void setUbicacion(String ubicacion){
@@ -67,19 +64,15 @@ public class Evento {
     }
 
     public void AgregarRecurso(Recurso recursoNuevo){
-        this.recursos.add(recursoNuevo);
+        this.recursos.put(recursoNuevo.getNombre(),recursoNuevo);
     }
 
-    public void QuitarMiembro(Persona miembro){
-        this.miembros.remove(miembro);
-    }
-
-    public void QuitarRecurso(Recurso recurso){
+    public void QuitarRecurso(String recurso){
         this.recursos.remove(recurso);
     }
 
     @Override
-    public String toString(){
-        return "'"+this.nombreEvento+"' ["+this.fecha+"] en "+this.ubicacion+": "+this.descripcion;
+    public int compareTo(Evento other){
+        return this.fecha.compareTo(other.getFecha());
     }
 }
