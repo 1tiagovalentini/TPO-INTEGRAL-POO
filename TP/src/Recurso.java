@@ -17,10 +17,10 @@ public abstract class Recurso {
 
     public boolean editarFechaUsoEvento(Evento eventoConsultante, String nuevaFecha){
         boolean resultadoOperacion;
-        
+        quitarFechaEnUso(eventoConsultante.getFecha());
+
         if(EstaEnUso(nuevaFecha)){
             resultadoOperacion = false;
-            quitarFechaEnUso(eventoConsultante.getFecha());
         }else{
             resultadoOperacion = true;
             agregarFechaEnUso(nuevaFecha);
